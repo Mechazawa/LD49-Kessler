@@ -9,12 +9,4 @@ module.exports = {
     'max-lines-per-function': 'off',
     'import/no-webpack-loader-syntax': 'off',
   },
-  overrides: [
-    {
-      files: ['*CM.vue', '*SVG*.vue', '*WYSIWYG*.vue'],
-      rules: {
-        'vue/match-component-file-name': 'off',
-      },
-    },
-  ],
 };
