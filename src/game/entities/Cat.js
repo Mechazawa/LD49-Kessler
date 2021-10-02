@@ -35,8 +35,11 @@ export default class Cat extends AbstractEntity {
       this.sprite.y = this.controls.mouse.y;
     } else {
       if (this.controls.up.pressed) this.sprite.vy -= 3;
+
       if (this.controls.down.pressed) this.sprite.vy += 3;
+
       if (this.controls.left.pressed) this.sprite.vx -= 3;
+
       if (this.controls.right.pressed) this.sprite.vx += 3;
     }
   }

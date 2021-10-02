@@ -8,6 +8,8 @@
 import game from './game';
 import Cat from './game/entities/Cat';
 import Planet from './game/entities/Planet';
+import entityStore from './game/EntityStore';
+import { unique } from './utils';
 
 export default {
   name: 'app',
@@ -16,6 +18,7 @@ export default {
 
     game.renderer.backgroundColor = 0x061639;
 
+    window.entityStore = entityStore;
     window.game = game;
 
     game.loader.onProgress.add((loader, resource) => {
@@ -37,23 +40,19 @@ export default {
     });
 
     game.loader
-      .add([...new Set([
+      .add(unique([
         Planet.texture,
         Cat.texture,
-      ])])
+      ]))
       .load(() => {
-        const cat = new Cat();
-        const planet = new Planet();
+        entityStore.add(new Cat());
+        entityStore.add(new Planet());
+
 
         game.ticker.add(delta => {
-          cat.tick(delta);
-          planet.tick(delta);
-
-          cat.update(delta);
-          planet.update(delta);
+          entityStore.tick(delta);
+          entityStore.update(delta);
         });
-
-        window.entities = { cat, planet };
       });
   },
 };
