@@ -7,6 +7,7 @@
 <script>
 import game from './game';
 import Cat from './game/entities/Cat';
+import Planet from './game/entities/Planet';
 
 export default {
   name: 'app',
@@ -36,15 +37,23 @@ export default {
     });
 
     game.loader
-      .add(Cat.texture)
+      .add([...new Set([
+        Planet.texture,
+        Cat.texture,
+      ])])
       .load(() => {
         const cat = new Cat();
+        const planet = new Planet();
 
         game.ticker.add(delta => {
           cat.tick(delta);
+          planet.tick(delta);
 
           cat.update(delta);
+          planet.update(delta);
         });
+
+        window.entities = { cat, planet };
       });
   },
 };

@@ -37,8 +37,10 @@ export default class AbstractEntity extends EventEmitter {
    * @param delta {number}
    */
   update (delta) {
-    this.sprite.x += this.sprite.vx;
-    this.sprite.y += this.sprite.vy;
+    if (!Number.isNaN(this.sprite.vx + this.sprite.vy)) {
+      this.sprite.x += this.sprite.vx;
+      this.sprite.y += this.sprite.vy;
+    }
   }
 
   /**
