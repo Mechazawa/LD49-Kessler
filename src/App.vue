@@ -1,19 +1,55 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="game" ref="game"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { Sprite } from 'pixi.js';
+import game from './game';
+import Key from './game/input/Key';
+import Cat from './game/entities/Cat';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: 'app',
+  mounted () {
+    this.$refs.game.appendChild(game.view);
+
+    game.renderer.backgroundColor = 0x061639;
+
+    window.game = game;
+
+    game.loader.onProgress.add((loader, resource) => {
+      //Display the file `url` currently being loaded
+      console.log("loading: " + resource.url);
+
+      //Display the percentage of files currently loaded
+      console.log("progress: " + loader.progress + "%");
+
+      // If you gave your files names as the first argument
+      // of the `add` method, you can access them like this
+      // However, I recommend you don't use this feature!
+      // That's because you'll have to remember all names
+      // you gave each loaded files, as well as make sure
+      // you don't accidentally use the same name more than
+      // once. Using the file path name, is simpler and
+      // less error prone.
+      //console.log("loading: " + resource.name);
+    });
+
+    game.loader
+      .add(Cat.texture)
+      .load(() => {
+        const cat = new Cat();
+
+        game.ticker.add(delta => {
+          cat.tick(delta);
+
+          cat.update(delta);
+        })
+      });
+  },
+};
 </script>
 
 <style>
