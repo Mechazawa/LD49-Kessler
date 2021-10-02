@@ -1,6 +1,7 @@
 import EventEmitter from 'events';
 import { Sprite } from 'pixi.js';
 import game from '../index';
+import { first } from '../../utils';
 
 export default class AbstractEntity extends EventEmitter {
   /**
@@ -15,6 +16,8 @@ export default class AbstractEntity extends EventEmitter {
    * @type {PIXI.Sprite}
    */
   sprite;
+
+  dead = false;
 
   constructor () {
     super();
@@ -46,8 +49,13 @@ export default class AbstractEntity extends EventEmitter {
   /**
    * Called upon destruction
    * Used for removing event listeners etc
-   * @abstract
    */
   destroy () {
+    this.removeAllListeners();
+    this.dead = true;
+
+    game.stage.removeChild(this.sprite);
+
+    this.sprite.destroy();
   }
 }

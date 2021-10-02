@@ -1,5 +1,5 @@
 import { Point, SimpleRope } from 'pixi.js';
-import { arrGen, cubicInterpolation } from '../utils';
+import { arrGen } from '../utils';
 import game from './index';
 
 export default class Trail {
@@ -17,7 +17,7 @@ export default class Trail {
     this.maxHistory = historyLength;
     this.parent = parent;
 
-    const {x = 0, y = 0} = parent.sprite;
+    const { x = 0, y = 0 } = parent.sprite;
 
     this.points = arrGen(() => new Point(x, y), length);
     this.history.x = arrGen(x, length);
@@ -42,7 +42,7 @@ export default class Trail {
     this.history.y.unshift(this.parent.sprite.y);
 
     for (let i = 0; i < this.maxPoints; i++) {
-      this.points[i] = new Point(
+      this.points[i].set(
         this.history.x[Math.round(i / this.maxPoints * this.history.x.length)],
         this.history.y[Math.round(i / this.maxPoints * this.history.y.length)],
       );

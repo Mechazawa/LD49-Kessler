@@ -11,6 +11,8 @@ import Planet from './game/entities/Planet';
 import entityStore from './game/EntityStore';
 import { unique } from './utils';
 import Satellite from './game/entities/Satellite';
+import CollisionWarning from './game/entities/CollisionWarning';
+import Stats from 'stats.js';
 
 export default {
   name: 'app',
@@ -46,18 +48,26 @@ export default {
         Cat.texture,
         Satellite.texture,
         'images/trail.png',
-      ]))
+        CollisionWarning.texture,
+      ].flat()))
       .load(() => {
         entityStore.add(new Cat());
         entityStore.add(new Planet());
-        entityStore.add(new Satellite(400, 500, 1.2, 0));
         entityStore.add(new Satellite(250, 400, -1, -0.5));
+        entityStore.add(new Satellite(400, 500, 1.2, 0));
+
+        const stats = new Stats();
+
+        this.$refs.game.appendChild(stats.dom);
 
         game.ticker.add(delta => {
+          stats.begin();
           entityStore.tick(delta);
           entityStore.update(delta);
+          stats.end();
         });
       });
+
   },
 };
 </script>

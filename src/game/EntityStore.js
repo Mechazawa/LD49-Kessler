@@ -1,7 +1,10 @@
 import EventEmitter from 'events';
+import RBush from 'rbush';
 
 class EntityStore extends EventEmitter {
   store = new Map();
+
+  tree = new RBush(9);
 
   add (entity) {
     const constructor = entity.constructor;
@@ -17,7 +20,7 @@ class EntityStore extends EventEmitter {
     const constructor = entity.constructor;
 
     if (this.store.has(constructor)) {
-      this.store.get(constructor).remove(entity);
+      this.store.get(constructor).delete(entity);
     }
   }
 
@@ -32,7 +35,14 @@ class EntityStore extends EventEmitter {
   }
 
   tick (delta) {
-    this.forEach(entity => entity.tick(delta));
+    this.forEach(entity =>{
+      entity.tick(delta)
+
+      if (entity.dead) {
+        entity.destroy();
+        this.remove(entity);
+      }
+    });
   }
 
   update (delta) {
