@@ -7,10 +7,10 @@ export default class Cat extends AbstractEntity {
   static texture = 'images/cat.png';
 
   controls = {
-    up: new Key("ArrowUp"),
-    down: new Key("ArrowDown"),
-    left: new Key("ArrowLeft"),
-    right: new Key("ArrowRight"),
+    up: new Key('ArrowUp'),
+    down: new Key('ArrowDown'),
+    left: new Key('ArrowLeft'),
+    right: new Key('ArrowRight'),
     mouse: new Mouse(),
   };
 

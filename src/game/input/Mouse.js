@@ -25,7 +25,7 @@ export default class Mouse extends EventEmitter {
 
     Mouse[instanceSymbol] = this;
 
-    const el = document.getElementById('game');
+    const el = document.getElementsByTagName('canvas')[0];
 
     el.addEventListener('mousemove', e => this._update(e));
     el.addEventListener('mouseup', e => this._update(e));
