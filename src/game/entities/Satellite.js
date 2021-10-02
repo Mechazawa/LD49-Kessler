@@ -21,7 +21,7 @@ export default class Satellite extends Orbital {
 
   trail;
 
-  constructor (x, y, vx, vy, points = 30) {
+  constructor (x, y, vx, vy, points = 10) {
     super(x, y, vx, vy);
 
     const trailTexture = game.loader.resources['images/trail.png'].texture;
@@ -50,6 +50,10 @@ export default class Satellite extends Orbital {
   }
 
   _buyDebris () {
+    if (this.debris.length === 0) {
+      return;
+    }
+
     while (this.points > 0) {
       for (const _Debris of this.debris) {
         // replace with while for bias
@@ -61,7 +65,7 @@ export default class Satellite extends Orbital {
           vx += randInt(vx * -0.5, vx * 0.5);
           vy += randInt(vy * -0.5, vy * 0.5);
 
-          entityStore.add(new _Debris(x, y, vx, vy));
+          setTimeout(() => entityStore.add(new _Debris(x, y, vx, vy)), randInt(0, 300));
         }
       }
     }

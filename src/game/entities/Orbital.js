@@ -122,7 +122,6 @@ export default class Orbital extends AbstractEntity {
   }
 
   updateCollision () {
-    // todo replace with "thing that orbits" class
     const collisions = Array.from(entityStore.getEntitiesForType(Orbital))
       .filter(e => !e.dead && this !== e && Boolean(this.testCollision(e)));
 
@@ -131,10 +130,17 @@ export default class Orbital extends AbstractEntity {
 
       collisions.forEach(e => e.explode());
     }
+
+    const crashed = Array.from(entityStore.getEntitiesForType(Planet))
+      .some(e => !e.dead && Boolean(this.testCollision(e)))
+
+    if (crashed) {
+      this.explode();
+    }
   }
 
   testCollision (target) {
-    return circleIntersect({
+    return !this.dead && !target.dead && circleIntersect({
       x: this.sprite.x, y: this.sprite.y, r: this.collisionRadius,
     }, {
       x: target.sprite.x, y: target.sprite.y, r: target.collisionRadius,

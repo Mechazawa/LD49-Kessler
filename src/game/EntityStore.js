@@ -58,8 +58,8 @@ class EntityStore extends EventEmitter {
     this.forEach(entity => !entity.dead && entity.update(delta));
   }
 
-  getEntitiesForType (type) {
-    return new Set(this.store.get(type));
+  getEntitiesForType (...types) {
+    return new Set(types.map(t => this.store.get(t) ?? []).map(s => Array.from(s)).flat());
   }
 
   static _getConstructorsFor (item) {
