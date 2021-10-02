@@ -11,14 +11,14 @@ import Trail from '../Trail';
 export default class Satellite extends AbstractEntity {
   static texture = first(textures);
 
-  constructor () {
+  constructor (x, y, vx, vy) {
     super();
 
     this.sprite.anchor.set(0.5, 0.5);
-    this.sprite.position.set(400, 500);
+    this.sprite.position.set(x, y);
 
-    this.sprite.vx = 1.2;
-    this.sprite.vy = 0;
+    this.sprite.vx = vx;
+    this.sprite.vy = vy;
 
     game.stage.addChild(this.sprite);
 

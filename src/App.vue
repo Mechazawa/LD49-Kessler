@@ -50,7 +50,8 @@ export default {
       .load(() => {
         entityStore.add(new Cat());
         entityStore.add(new Planet());
-        entityStore.add(new Satellite());
+        entityStore.add(new Satellite(400, 500, 1.2, 0));
+        entityStore.add(new Satellite(250, 400, -1, -0.5));
 
         game.ticker.add(delta => {
           entityStore.tick(delta);
