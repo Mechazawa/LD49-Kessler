@@ -6,6 +6,9 @@ import { degToRad, first } from '../../utils';
 export default class Planet extends AbstractEntity {
   static texture = first(textures);
 
+  mass = 5.975e24;
+  gravity = 6.6742e-11;
+
   constructor () {
     super();
 

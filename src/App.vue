@@ -10,6 +10,7 @@ import Cat from './game/entities/Cat';
 import Planet from './game/entities/Planet';
 import entityStore from './game/EntityStore';
 import { unique } from './utils';
+import Satellite from './game/entities/Satellite';
 
 export default {
   name: 'app',
@@ -43,11 +44,12 @@ export default {
       .add(unique([
         Planet.texture,
         Cat.texture,
+        Satellite.texture,
       ]))
       .load(() => {
         entityStore.add(new Cat());
         entityStore.add(new Planet());
-
+        entityStore.add(new Satellite());
 
         game.ticker.add(delta => {
           entityStore.tick(delta);
