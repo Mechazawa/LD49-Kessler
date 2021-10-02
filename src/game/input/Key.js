@@ -16,7 +16,6 @@ export default class Key extends EventEmitter {
     if (Key._instances.hasOwnProperty(key)) {
       Key._instances[key].count++;
 
-      // eslint-ignore-next-line no-constructor-return
       return Key._instances[key].instance;
     }
 
