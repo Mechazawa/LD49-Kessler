@@ -8,8 +8,7 @@ import CollisionWarning from './CollisionWarning';
 
 
 export default class Orbital extends AbstractEntity {
-
-  static collisionRadius = 0;
+  collisionRadius = 0;
 
   lookahead = arrGen(() => new PIXI.Point(0, 0), 300);
   lookaheadIndex = 0;
@@ -35,6 +34,8 @@ export default class Orbital extends AbstractEntity {
 
   destroy () {
     super.destroy();
+
+    entityStore.tree.remove(this.lookaheadBBox);
 
     CollisionWarning.findForOrbital(this).forEach(x => x.destroy());
   }
@@ -123,10 +124,10 @@ export default class Orbital extends AbstractEntity {
   updateCollision () {
     // todo replace with "thing that orbits" class
     const collisions = Array.from(entityStore.getEntitiesForType(Orbital))
-      .filter(e => this !== e && Boolean(this.testCollision(e)));
+      .filter(e => !e.dead && this !== e && Boolean(this.testCollision(e)));
 
     if (collisions.length) {
-      this.destroy();
+      this.explode();
 
       collisions.forEach(e => e.explode());
     }
@@ -134,9 +135,9 @@ export default class Orbital extends AbstractEntity {
 
   testCollision (target) {
     return circleIntersect({
-      x: this.sprite.x, y: this.sprite.y, r: this.constructor.collisionRadius,
+      x: this.sprite.x, y: this.sprite.y, r: this.collisionRadius,
     }, {
-      x: target.sprite.x, y: target.sprite.y, r: target.constructor.collisionRadius,
+      x: target.sprite.x, y: target.sprite.y, r: target.collisionRadius,
     });
   }
 
@@ -145,8 +146,8 @@ export default class Orbital extends AbstractEntity {
     let bi = target.lookaheadIndex;
 
     while (ai < this.lookahead.length && bi < target.lookahead.length) {
-      const ap = { ...this.lookahead[ai], r: this.constructor.collisionRadius };
-      const bp = { ...target.lookahead[bi], r: target.constructor.collisionRadius };
+      const ap = { ...this.lookahead[ai], r: this.collisionRadius };
+      const bp = { ...target.lookahead[bi], r: target.collisionRadius };
 
       if (circleIntersect(ap, bp)) {
         return {

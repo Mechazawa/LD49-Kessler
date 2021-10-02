@@ -57,3 +57,17 @@ export function circleIntersect (a, b) {
 
   return (a.r - b.r) ** 2 <= dist && dist <= (a.r + b.r) ** 2;
 }
+
+export function randomPick (obj) {
+  if (typeof obj !== 'object') {
+    return obj;
+  }
+
+  const arr = Array.isArray(obj) ? obj : Array.from(Object.values(obj));
+
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+export function randInt (min, max) {
+  return Math.random() * (max - min) + min;
+}

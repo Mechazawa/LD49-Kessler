@@ -13,6 +13,9 @@ import { unique } from './utils';
 import Satellite from './game/entities/Satellite';
 import CollisionWarning from './game/entities/CollisionWarning';
 import Stats from 'stats.js';
+import Satellite1DebrisBig from './game/entities/Satellite1DebrisBig';
+import Satellite1DebrisSmall from './game/entities/Satellite1DebrisSmall';
+import Satellite1DebrisTiny from './game/entities/Satellite1DebrisTiny';
 
 export default {
   name: 'app',
@@ -49,12 +52,16 @@ export default {
         Satellite.texture,
         'images/trail.png',
         CollisionWarning.texture,
+        Satellite1DebrisBig.texture,
+        Satellite1DebrisSmall.texture,
+        Satellite1DebrisTiny.texture,
       ].flat()))
       .load(() => {
         entityStore.add(new Cat());
         entityStore.add(new Planet());
         entityStore.add(new Satellite(250, 400, -1, -0.5));
         entityStore.add(new Satellite(400, 500, 1.2, 0));
+        entityStore.add(new Satellite(500, 500, 1, 0));
 
         const stats = new Stats();
 
