@@ -4,13 +4,12 @@ import textures from 'svg-to-png-loader?width=50&height=50&name=[name]-[width]x[
 import { first } from '../../utils';
 import entityStore from '../EntityStore';
 import Planet from './Planet';
+import * as PIXI from 'pixi.js';
+import Trail from '../Trail';
+
 
 export default class Satellite extends AbstractEntity {
   static texture = first(textures);
-
-  _angle = 0;
-  _gravAccel = 0;
-  _radius = 0;
 
   constructor () {
     super();
@@ -22,6 +21,13 @@ export default class Satellite extends AbstractEntity {
     this.sprite.vy = 0;
 
     game.stage.addChild(this.sprite);
+
+    const trailTexture = game.loader.resources['images/trail.png'].texture;
+
+    window.satellite = this;
+
+    this.trail = new Trail(this, trailTexture, 30, 200);
+    this.trail.rope.blendMode = PIXI.BLEND_MODES.ADD;
   }
 
   destroy () {
@@ -32,15 +38,20 @@ export default class Satellite extends AbstractEntity {
     const planet = Array.from(entityStore.getEntitiesForType(Planet))[0];
     const scale = 10_000;
 
-    const rx = this.sprite.x - planet.sprite.x
-    const ry = this.sprite.y - planet.sprite.y
+    const rx = this.sprite.x - planet.sprite.x;
+    const ry = this.sprite.y - planet.sprite.y;
 
-    this._radius = Math.sqrt(rx ** 2 + ry ** 2) * scale;
-    this._gravAccel = planet.gravity * (planet.mass / this._radius ** 2);
-    this._angle = Math.atan2(rx * scale, ry * scale);
+    // todo remove need for "scale"
+    const radius = Math.sqrt(rx ** 2 + ry ** 2) * scale;
+    const gravAccel = planet.gravity * (planet.mass / radius ** 2);
+    const angle = Math.atan2(rx, ry);
 
-    this.sprite.vx += (Math.sin(this._angle) * this._gravAccel) / scale;
-    this.sprite.vy += (Math.cos(this._angle) * this._gravAccel) / scale;
+    this.sprite.vx += (Math.sin(angle) * gravAccel) / scale;
+    this.sprite.vy += (Math.cos(angle) * gravAccel) / scale;
+
+    this.sprite.rotation = -angle;
+
+    this.trail.tick();
   }
 
   update (delta) {

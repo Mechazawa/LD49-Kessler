@@ -15,3 +15,14 @@ export function radToDeg (rad) {
 export function unique (arr) {
   return Array.from(new Set(arr));
 }
+
+export function arrGen(fn, count) {
+  const out = [];
+
+  for (let i = 0; i < count; i++) {
+    out.push(fn(i));
+  }
+
+  return out;
+}
+

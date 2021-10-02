@@ -45,6 +45,7 @@ export default {
         Planet.texture,
         Cat.texture,
         Satellite.texture,
+        'images/trail.png',
       ]))
       .load(() => {
         entityStore.add(new Cat());
