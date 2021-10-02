@@ -17,13 +17,15 @@ export default class Trail {
     this.maxHistory = historyLength;
     this.parent = parent;
 
-    this.points = arrGen(() => new Point(parent.x ?? 0, parent.y ?? 0), length);
-    this.history.x = arrGen(() => parent.x ?? 0, length);
-    this.history.y = arrGen(() => parent.y ?? 0, length);
+    const {x = 0, y = 0} = parent.sprite;
+
+    this.points = arrGen(() => new Point(x, y), length);
+    this.history.x = arrGen(x, length);
+    this.history.y = arrGen(y, length);
 
     this.rope = new SimpleRope(texture, this.points);
 
-    game.stage.addChild(this.rope);
+    game.stage.addChildAt(this.rope, 0);
   }
 
   destroy () {

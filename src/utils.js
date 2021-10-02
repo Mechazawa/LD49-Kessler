@@ -20,7 +20,7 @@ export function arrGen(fn, count) {
   const out = [];
 
   for (let i = 0; i < count; i++) {
-    out.push(fn(i));
+    out.push(typeof fn === 'function' ? fn(i) : fn);
   }
 
   return out;
