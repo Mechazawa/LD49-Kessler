@@ -35,6 +35,14 @@ export default class Debris extends Orbital {
     this.trail.destroy();
   }
 
+  testCollisionLookahead (target) {
+    if (target instanceof Debris) {
+      return null;
+    }
+
+    return super.testCollisionLookahead(target);
+  }
+
   explode () {
     if (this.invincible) {
       return;

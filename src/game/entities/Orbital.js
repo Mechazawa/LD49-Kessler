@@ -8,6 +8,8 @@ import CollisionWarning from './CollisionWarning';
 
 
 export default class Orbital extends AbstractEntity {
+  static scale = 10_000;
+
   collisionRadius = 0;
 
   lookahead = arrGen(() => new PIXI.Point(0, 0), 300);
