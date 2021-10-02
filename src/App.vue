@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import { Sprite } from 'pixi.js';
 import game from './game';
-import Key from './game/input/Key';
 import Cat from './game/entities/Cat';
 
 export default {
