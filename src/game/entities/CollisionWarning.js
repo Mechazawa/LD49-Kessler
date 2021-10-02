@@ -24,6 +24,7 @@ export default class CollisionWarning extends AbstractEntity {
 
   destroy () {
     super.destroy();
+    this.ttl = 0;
   }
 
   tick (delta) {
@@ -31,13 +32,13 @@ export default class CollisionWarning extends AbstractEntity {
     this.sprite.vy = 0;
 
     this.ttl--;
-    this.dead = this.ttl < 0 || this.satellites.some(x => x.dead);
+    this.dead = this.ttl <= 0 || this.satellites.some(x => x.dead);
   }
 
   update (delta) {
     super.update(delta);
 
-    this.sprite.rotation = degToRad(20 * Math.sin(this.ttl));
+    this.sprite.rotation = degToRad(15 * Math.sin(this.ttl / 7));
     this.sprite.x = this.satellites[0].sprite.x;
     this.sprite.y = this.satellites[0].sprite.y;
   }
@@ -53,7 +54,7 @@ export default class CollisionWarning extends AbstractEntity {
     });
   }
 
-  static findForSatellite (satellite) {
-    return Array.from(entityStore.getEntitiesForType(CollisionWarning)).find(warning => warning.satellites.includes(satellite));
+  static findForOrbital (satellite) {
+    return Array.from(entityStore.getEntitiesForType(CollisionWarning)).filter(warning => warning.satellites.includes(satellite));
   }
 }

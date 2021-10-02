@@ -1,6 +1,7 @@
 import { Point, SimpleRope } from 'pixi.js';
 import { arrGen } from '../utils';
 import game from './index';
+import * as PIXI from 'pixi.js';
 
 export default class Trail {
   points = [];
@@ -24,12 +25,16 @@ export default class Trail {
     this.history.y = arrGen(y, length);
 
     this.rope = new SimpleRope(texture, this.points);
+    this.rope.blendMode = PIXI.BLEND_MODES.ADD;
 
     game.stage.addChildAt(this.rope, 0);
   }
 
   destroy () {
     game.stage.removeChild(this.rope);
+
+    this.rope?.destroy();
+    this.rope = null;
   }
 
   tick () {

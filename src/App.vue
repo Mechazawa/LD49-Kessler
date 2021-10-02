@@ -67,7 +67,6 @@ export default {
           stats.end();
         });
       });
-
   },
 };
 </script>
