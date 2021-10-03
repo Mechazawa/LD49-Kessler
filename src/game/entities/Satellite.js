@@ -74,8 +74,6 @@ export default class Satellite extends Orbital {
 
     this.trail.destroy();
 
-    this.deselect();
-
     Object
       .values(this.controls)
       .forEach(c => c.destroy?.());

@@ -48,6 +48,8 @@ export default class Orbital extends AbstractEntity {
   destroy () {
     super.destroy();
 
+    this.deselect();
+
     entityStore.tree.remove(this.lookaheadBBox);
 
     CollisionWarning.findForOrbital(this).forEach(x => x.destroy());
