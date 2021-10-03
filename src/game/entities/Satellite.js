@@ -57,6 +57,12 @@ export default class Satellite extends Orbital {
     }
   }
 
+  update(delta) {
+    super.update(delta);
+
+    this.sprite.alpha = this.fuel < 0 ? 0.8 : 1;
+  }
+
   _handleInput (delta) {
     let usesFuel = false;
     const applySpeed = (what, amount, button) => {

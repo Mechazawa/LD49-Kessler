@@ -200,14 +200,12 @@ export default class Orbital extends AbstractEntity {
       const ttl = this.lookaheadIndex - i;
 
       for (const planet of intersections) {
-        if (!CollisionWarning.findForCollision({ ttl }, [this])) {
-          entityStore.add(new CollisionWarning(
-            [this],
-            planet.sprite.x,
-            planet.sprite.y,
-            ttl,
-          ));
-        }
+        entityStore.add(new CollisionWarning(
+          [this, planet],
+          this.lookahead[i].x,
+          this.lookahead[i].y,
+          ttl,
+        ));
       }
     }
 
