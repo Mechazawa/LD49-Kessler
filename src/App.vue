@@ -25,6 +25,7 @@ import Satelite3 from './game/entities/Satellite3';
 import Satelite2 from './game/entities/Satellite2';
 import NewsCM from './components/NewsCM';
 import EscapeRing from './game/entities/EscapeRing';
+import Orbital from './game/entities/Orbital';
 
 
 export default {
@@ -123,9 +124,12 @@ export default {
       // entityStore.add(new Cat());
       entityStore.add(new EscapeRing());
       entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
-      entityStore.add(new Satelite1(200, 400, -1, -0.6));
-      entityStore.add(new Satelite3(400, 600, 1.2, 0));
-      entityStore.add(new Sputnik(300, 400, 0, 1.3));
+      // entityStore.add(new Satelite1(200, 400, -1, -0.6));
+      // entityStore.add(new Satelite3(400, 600, 1.2, 0));
+      // entityStore.add(new Sputnik(300, 400, 0, 1.3));
+
+      window.spawn = (x, y, vx, vy) => entityStore.add(new Satelite1(x, y, vx, vy))
+      window.reset = () => Array.from(entityStore.getEntitiesForType(Orbital)).forEach(e => e.destroy());
 
       SoundEffect.ambient().play();
     },
