@@ -7,6 +7,7 @@ import Satellite1DebrisTiny from './Satellite1DebrisTiny';
 import Satellite1DebrisSmall from './Satellite1DebrisSmall';
 import Satellite1DebrisBig from './Satellite1DebrisBig';
 import entityStore from '../EntityStore';
+import Key from '../input/Key';
 
 export default class Satellite extends Orbital {
   static texture = first(textures);
@@ -21,6 +22,13 @@ export default class Satellite extends Orbital {
 
   trail;
 
+  controls = {
+    up: new Key('w'),
+    down: new Key('s'),
+    left: new Key('a'),
+    right: new Key('d'),
+  };
+
   constructor (x, y, vx, vy, points = 10) {
     super(x, y, vx, vy);
 
@@ -32,18 +40,40 @@ export default class Satellite extends Orbital {
     this.debris.sort((a, b) => b.price - a.price);
 
     // for sat 1
-    this.sprite.anchor.set(0.6, 0.6)
+    this.sprite.anchor.set(0.6, 0.6);
   }
 
   tick (delta) {
     this.trail.tick();
     super.tick(delta);
+
+    if (this.selected) {
+      this._handleInput();
+    }
+  }
+
+  _handleInput () {
+    const speed = 0.1;
+
+    if (this.controls.up.pressed) this.sprite.vy += speed;
+
+    if (this.controls.down.pressed) this.sprite.vy -= speed;
+
+    if (this.controls.left.pressed) this.sprite.vx += speed;
+
+    if (this.controls.right.pressed) this.sprite.vx -= speed;
+
+    console.log(speed, this.controls.right.pressed);
   }
 
   destroy () {
     super.destroy();
 
     this.trail.destroy();
+
+    Object
+      .values(this.controls)
+      .forEach(c => c.destroy?.());
   }
 
   explode () {

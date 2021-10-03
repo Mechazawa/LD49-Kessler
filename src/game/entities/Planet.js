@@ -21,7 +21,7 @@ export default class Planet extends AbstractEntity {
   }
 
   destroy () {
-
+    super.destroy();
   }
 
   tick (delta) {

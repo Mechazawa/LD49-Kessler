@@ -85,6 +85,7 @@ export default class Orbital extends AbstractEntity {
   _onClick (event) {
     if (this.selected) {
       this.deselect();
+
       return;
     }
 
@@ -154,6 +155,29 @@ export default class Orbital extends AbstractEntity {
       }
     }
 
+    const planets = Array.from(entityStore.getEntitiesForType(Planet));
+
+    for (let i = this.lookaheadIndex; i < this.lookahead.length; i++) {
+      const intersections = planets.filter(planet => circleIntersect({
+        x: this.lookahead[i].x, y: this.lookahead[i].y, r: this.collisionRadius,
+      }, {
+        x: planet.sprite.x, y: planet.sprite.y, r: planet.collisionRadius,
+      }));
+
+      const ttl = this.lookaheadIndex - i;
+
+      for (const planet of intersections) {
+        if (!CollisionWarning.findForCollision({ ttl }, [this])) {
+          entityStore.add(new CollisionWarning(
+            [this],
+            planet.sprite.x,
+            planet.sprite.y,
+            ttl,
+          ));
+        }
+      }
+    }
+
     tree.insert(this.lookaheadBBox);
   }
 
@@ -209,19 +233,17 @@ export default class Orbital extends AbstractEntity {
   }
 
   static calcOrbitalVelocity (planet, x, y, vx, vy) {
-    const scale = 10_000;
-
     const rx = x - planet.sprite.x;
     const ry = y - planet.sprite.y;
 
     // todo remove need for "scale"
-    const radius = Math.sqrt(rx ** 2 + ry ** 2) * scale;
+    const radius = Math.sqrt(rx ** 2 + ry ** 2) * this.scale;
     const gravAccel = planet.gravity * (planet.mass / radius ** 2);
     const angle = Math.atan2(rx, ry);
 
     return {
-      vx: vx + (Math.sin(angle) * gravAccel) / scale,
-      vy: vy + (Math.cos(angle) * gravAccel) / scale,
+      vx: vx + (Math.sin(angle) * gravAccel) / this.scale,
+      vy: vy + (Math.cos(angle) * gravAccel) / this.scale,
       radius,
       angle,
       gravAccel,
