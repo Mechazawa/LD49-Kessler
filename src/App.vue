@@ -77,8 +77,12 @@ export default {
 
         game.ticker.add(delta => {
           stats.begin();
-          entityStore.tick(delta);
-          entityStore.update(delta);
+
+          if (!game.paused) {
+            entityStore.tick(delta);
+            entityStore.update(delta);
+          }
+
           stats.end();
         });
       });
