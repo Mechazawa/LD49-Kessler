@@ -7,7 +7,7 @@ import * as PIXI from 'pixi.js';
 import CollisionWarning from './CollisionWarning';
 import Highlight from './Highlight';
 import TrailPrediction from '../TrailPrediction';
-import Key from '../input/Key';
+import Explosion from './Explosion';
 
 
 export default class Orbital extends AbstractEntity {
@@ -85,7 +85,8 @@ export default class Orbital extends AbstractEntity {
   }
 
   explode () {
-    // todo explosion spawning
+    entityStore.add(new Explosion(this.sprite.x, this.sprite.y));
+
     this.destroy();
   }
 

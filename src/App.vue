@@ -19,6 +19,7 @@ import Satellite1DebrisTiny from './game/entities/Satellite1DebrisTiny';
 import Highlight from './game/entities/Highlight';
 import TrailPrediction from './game/TrailPrediction';
 import Prediction from './game/entities/Prediction';
+import Explosion from './game/entities/Explosion';
 
 export default {
   name: 'app',
@@ -61,6 +62,7 @@ export default {
         Highlight.texture,
         TrailPrediction.texture,
         Prediction.texture,
+        Explosion.texture,
       ].flat()))
       .load(() => {
         // entityStore.add(new Cat());
