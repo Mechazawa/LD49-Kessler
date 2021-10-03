@@ -10,14 +10,12 @@ import Satellite1DebrisBig from './Satellite1DebrisBig';
 import entityStore from '../EntityStore';
 import Key from '../input/Key';
 
-const hashSpeed = Number.parseFloat(new URLSearchParams(location.hash.substr(1)).get('speed') ?? 0.3);
-
-console.log('🚀 speed: ' + hashSpeed);
-
 export default class Satellite extends Orbital {
   static texture = first(textures);
 
-  speed = hashSpeed;
+  speed = 0.05;
+
+  fuel = 200;
 
   debris = [
     Satellite1DebrisBig,
@@ -51,22 +49,33 @@ export default class Satellite extends Orbital {
   }
 
   tick (delta) {
-    this.trail.tick();
+    this.trail.tick(delta);
     super.tick(delta);
 
     if (this.selected) {
-      this._handleInput();
+      this._handleInput(delta);
     }
+
   }
 
-  _handleInput () {
-    if (this.controls.up.pressed) this.sprite.vy += this.speed;
+  _handleInput (delta) {
+    let usesFuel = false;
+    const applySpeed = (what, amount, button) => {
+      if (this.fuel > 0 && this.controls[button].pressed) {
+        this.sprite[what] += amount;
 
-    if (this.controls.down.pressed) this.sprite.vy -= this.speed;
+        usesFuel = true;
+      }
+    };
 
-    if (this.controls.left.pressed) this.sprite.vx += this.speed;
+    applySpeed('vy', this.speed, 'up');
+    applySpeed('vy', -this.speed, 'down');
+    applySpeed('vx', this.speed, 'left');
+    applySpeed('vx', -this.speed, 'right');
 
-    if (this.controls.right.pressed) this.sprite.vx -= this.speed;
+    if (usesFuel) {
+      this.fuel -= delta;
+    }
   }
 
   destroy () {

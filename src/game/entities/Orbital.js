@@ -7,6 +7,7 @@ import * as PIXI from 'pixi.js';
 import CollisionWarning from './CollisionWarning';
 import Highlight from './Highlight';
 import TrailPrediction from '../TrailPrediction';
+import Key from '../input/Key';
 
 
 export default class Orbital extends AbstractEntity {

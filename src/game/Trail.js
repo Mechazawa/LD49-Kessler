@@ -37,7 +37,7 @@ export default class Trail {
     this.rope = null;
   }
 
-  tick () {
+  tick (delta) {
     if (this.history.x.length >= this.maxHistory) {
       this.history.x.pop();
       this.history.y.pop();
