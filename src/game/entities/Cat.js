@@ -21,6 +21,7 @@ export default class Cat extends AbstractEntity {
   }
 
   destroy () {
+    super.destroy();
     Object
       .values(this.controls)
       .forEach(c => c.destroy?.());

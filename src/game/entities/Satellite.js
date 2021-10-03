@@ -86,6 +86,8 @@ export default class Satellite extends Orbital {
     Object
       .values(this.controls)
       .forEach(c => c.destroy?.());
+
+    this.controls = {}; // otherwise it's going to do it again 😢
   }
 
   explode () {

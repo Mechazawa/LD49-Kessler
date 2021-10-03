@@ -71,3 +71,5 @@ export function randomPick (obj) {
 export function randInt (min, max) {
   return Math.random() * (max - min) + min;
 }
+
+export const env = Object.fromEntries((new URLSearchParams(location.hash.substr(1))).entries());
