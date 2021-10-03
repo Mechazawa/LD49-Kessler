@@ -128,7 +128,7 @@ export default {
       // entityStore.add(new Satelite3(400, 600, 1.2, 0));
       // entityStore.add(new Sputnik(300, 400, 0, 1.3));
 
-      window.spawn = (x, y, vx, vy) => entityStore.add(new Satelite1(x, y, vx, vy))
+      window.spawn = (x, y, vx, vy) => entityStore.add(new Satelite1(x, y, vx, vy));
       window.reset = () => Array.from(entityStore.getEntitiesForType(Orbital)).forEach(e => e.destroy());
 
       SoundEffect.ambient().play();
