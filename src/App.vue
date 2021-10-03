@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <NewsCM/>
-    <PauseCM v-if="paused" @toggle-music="toggleMusic"/>
+    <PauseCM v-if="paused"
+             @toggle-music="toggleMusic"
+             @dismiss="paused = false"/>
     <div id="game" ref="game"/>
   </div>
 </template>
