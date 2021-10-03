@@ -173,7 +173,7 @@ export default class Orbital extends AbstractEntity {
     tree.remove(this.lookaheadBBox);
     this.lookaheadBBox = { ...lineBBox(this.lookahead), ref: this };
 
-    CollisionWarning.findForOrbital(this).forEach(x => x.destroy());
+    CollisionWarning.findForOrbital(this).filter(x => x.satellites[0] === this).forEach(x => x.destroy());
 
     for (const { ref } of tree.search(this.lookaheadBBox)) {
       const intersection = this.testCollisionLookahead(ref);
@@ -181,7 +181,7 @@ export default class Orbital extends AbstractEntity {
       if (!intersection) continue;
 
       entityStore.add(new CollisionWarning(
-        CollisionWarning.findForOrbital(ref).length ? [this, ref] : [ref, this],
+        [this, ref],
         intersection.ap.x,
         intersection.ap.y,
         intersection.ttl,

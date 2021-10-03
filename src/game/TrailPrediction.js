@@ -39,10 +39,12 @@ export default class TrailPrediction {
   }
 
   tick (delta) {
-    this.setPredictions(CollisionWarning.findForOrbital(this.parent).map(o => ({
-      ttl: o.ttl,
-      point: { x: o.x, y: o.y },
-    })));
+    this.setPredictions(CollisionWarning.findForOrbital(this.parent)
+      .filter(x => x.satellites[0] === this.parent)
+      .map(o => ({
+        ttl: o.ttl,
+        point: { x: o.x, y: o.y },
+      })));
   }
 
   clearPredictions () {
