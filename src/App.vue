@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <NewsCM/>
     <div id="game" ref="game"/>
   </div>
 </template>
@@ -22,10 +23,14 @@ import Satelite1 from './game/entities/Satellite1';
 import Sputnik from './game/entities/Sputnik';
 import Satelite3 from './game/entities/Satellite3';
 import Satelite2 from './game/entities/Satellite2';
+import NewsCM from './components/NewsCM';
 
 
 export default {
   name: 'app',
+  components: {
+    NewsCM,
+  },
   mounted () {
     this.$refs.game.appendChild(game.view);
 
@@ -131,13 +136,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
   margin: auto;
 }
 
 body {
   padding: 0;
   margin: 0;
+  background: #36333f;
 }
 
 #game canvas {
@@ -149,5 +155,30 @@ body {
   /*cursor: url("assets/cursor-click.svg") click;*/
   /*cursor: url("assets/cursor-default.svg") default;*/
   /*cursor: url("assets/cursor-wait.svg") wait;*/
+}
+
+.fancyborder {
+  border-radius: 4px;
+  border: 8px solid #550593;
+
+  position: relative;
+}
+
+.fancyborder:before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  border-radius: 4px;
+  border: 2px solid #8100cc;
 }
 </style>
