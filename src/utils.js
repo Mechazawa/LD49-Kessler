@@ -1,6 +1,10 @@
 import Vue from 'vue';
 
 export function first (obj) {
+  if (obj instanceof Set) {
+    obj = Array.from(obj);
+  }
+
   return obj[0] ?? Object.values(obj)[0] ?? obj;
 }
 

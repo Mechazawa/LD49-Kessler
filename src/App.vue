@@ -24,6 +24,7 @@ import Sputnik from './game/entities/Sputnik';
 import Satelite3 from './game/entities/Satellite3';
 import Satelite2 from './game/entities/Satellite2';
 import NewsCM from './components/NewsCM';
+import EscapeRing from './game/entities/EscapeRing';
 
 
 export default {
@@ -96,6 +97,7 @@ export default {
             TrailPrediction.texture,
             Prediction.texture,
             Explosion.texture,
+            EscapeRing.texture,
           ].flat()))
           .load(() => {
             const stats = new Stats();
@@ -119,6 +121,7 @@ export default {
     },
     startGame () {
       // entityStore.add(new Cat());
+      entityStore.add(new EscapeRing());
       entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
       entityStore.add(new Satelite1(200, 400, -1, -0.6));
       entityStore.add(new Satelite3(400, 600, 1.2, 0));
@@ -158,7 +161,7 @@ body {
 }
 
 .fancyborder {
-  border-radius: 4px;
+  border-radius: 6px;
   border: 8px solid #550593;
 
   position: relative;
@@ -178,7 +181,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 
-  border-radius: 4px;
+  border-radius: 6px;
   border: 2px solid #8100cc;
 }
 </style>

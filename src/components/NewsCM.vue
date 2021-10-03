@@ -3,7 +3,7 @@
     <h1 class="fancyborder">Latest News</h1>
     <NewsArticle v-for="(article, index) of articles"
                  v-bind="article"
-                 v-bind:key="index"
+                 :key="index"
                  @dismiss="remove(article)"/>
   </div>
 </template>
@@ -24,8 +24,9 @@ export default {
   mounted () {
     window.news = this;
 
-    this.add({ title: "Hello World!", value: "Lorum ipsum and stuff ya know? badabing" });
-    this.add({ title: "Hello World!", value: "Lorum ipsum and stuff ya know? badabing", image: "images/cat.png" });
+    this.add({ title: 'Hello World!', value: 'Lorum ipsum and stuff ya know? badabing' });
+    this.add({ title: 'Hello World!', value: 'Lorum ipsum and stuff ya know? badabing bada bingb ada bingba dabing bad ab ingb adabing', image: 'images/cat.png' });
+    this.add({ title: 'Hello World!', value: 'Lorum ipsum and', image: 'images/cat.png' });
   },
   methods: {
     add (article) {

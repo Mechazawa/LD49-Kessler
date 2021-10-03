@@ -1,9 +1,11 @@
 import Orbital from './Orbital';
-import { randInt } from '../../utils';
+import { circleIntersect, first, randInt } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
 import entityStore from '../EntityStore';
 import Key from '../input/Key';
+import CollisionWarning from './CollisionWarning';
+import EscapeRing from './EscapeRing';
 
 export default class Satellite extends Orbital {
   /**
@@ -124,6 +126,51 @@ export default class Satellite extends Orbital {
 
       if (last === this.points) {
         return;
+      }
+    }
+  }
+
+  updateCollision () {
+    super.updateCollision();
+
+    if (!this.dead) {
+      const ring = first(entityStore.getEntitiesForType(EscapeRing));
+
+      const escaped = circleIntersect({
+        x: this.sprite.x, y: this.sprite.y, r: this.collisionRadius,
+      }, {
+        x: ring.sprite.x, y: ring.sprite.y, r: ring.radius,
+      });
+
+      if (escaped) {
+        this.explode();
+      }
+    }
+  }
+
+  updateCollisionLookahead () {
+    super.updateCollisionLookahead();
+
+    const ring = first(entityStore.getEntitiesForType(EscapeRing));
+
+    for (let i = this.lookaheadIndex; i < this.lookahead.length; i++) {
+      const escaped = circleIntersect({
+        x: this.lookahead[i].x, y: this.lookahead[i].y, r: this.collisionRadius,
+      }, {
+        x: ring.sprite.x, y: ring.sprite.y, r: ring.radius,
+      });
+
+      const ttl = this.lookaheadIndex - i;
+
+      if (escaped) {
+        entityStore.add(new CollisionWarning(
+          [this, ring],
+          this.lookahead[i].x,
+          this.lookahead[i].y,
+          ttl,
+        ));
+
+        break;
       }
     }
   }

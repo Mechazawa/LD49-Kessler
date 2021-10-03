@@ -1,8 +1,11 @@
 <template>
-  <div class="fancyborder">
+  <div :class="{ fancyborder: true, hasImage: !!image }">
     <span class="clickable fancyborder dismiss" @click="$emit('dismiss')">X</span>
+    <div v-if="image" class="fancyborder fixed">
+      <img :src="image" width="80%"/>
+    </div>
     <h1 v-if="title" v-text="title"/>
-    <p v-if="value"  v-text="value"/>
+    <p v-if="value" v-text="value"/>
   </div>
 </template>
 
@@ -11,46 +14,78 @@ export default {
   name: 'news-article',
   props: {
     image: {
-      optional: true,
-      type: String
+      default: '',
+      type: String,
     },
     title: {
-      optional: true,
-      type: String
+      default: '',
+      type: String,
     },
     value: {
-      optional: true,
-      type: String
-    }
-  }
+      default: '',
+      type: String,
+    },
+  },
 };
 </script>
 
 <style scoped>
- .clickable:hover {
-   cursor: pointer;
- }
+img {
+  padding: 5px;
+}
 
- div {
-   background: #333;
- }
+.fixed {
+  position: relative;
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin-right: 5px;
+  float: left;
+  text-align: center;
+}
 
- .dismiss {
-   border-radius: 20px;
-   font-size: 10pt;
-   font-weight: bold;
-   position: absolute;
+.clickable:hover {
+  cursor: pointer;
+}
 
-   width: 1.3em;
-   height: 1.3em;
+div {
+  background: #333;
+  width: 300px;
+}
 
-   top: -20px;
-   right: -20px;
-   background: inherit;
-   z-index: 2;
- }
+h1, p {
+  margin-top: 0.2em;
+  margin-bottom: 0.1em;
+  font-family: Helvetica, sans-serif;
+}
 
- .dismiss:before {
-   border-radius: 20px;
- }
+p {
+  text-align: justify;
+}
+
+.dismiss {
+  border-radius: 20px;
+  font-size: 13pt;
+  font-weight: bold;
+  position: absolute;
+
+  width: 1.3em;
+  height: 1.3em;
+
+  top: -20px;
+  right: -20px;
+  background: inherit;
+  z-index: 2;
+
+  text-align: center;
+}
+
+.dismiss:before {
+  border-radius: 20px;
+}
+
+.hasImage {
+  min-height: 106px;
+  text-align: left;
+}
 </style>
