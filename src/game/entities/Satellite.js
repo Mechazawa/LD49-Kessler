@@ -62,8 +62,6 @@ export default class Satellite extends Orbital {
     if (this.controls.left.pressed) this.sprite.vx += speed;
 
     if (this.controls.right.pressed) this.sprite.vx -= speed;
-
-    console.log(speed, this.controls.right.pressed);
   }
 
   destroy () {
