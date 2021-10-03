@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 export function first (obj) {
   return obj[0] ?? Object.values(obj)[0] ?? obj;
 }
@@ -73,3 +75,19 @@ export function randInt (min, max) {
 }
 
 export const env = Object.fromEntries((new URLSearchParams(location.hash.substr(1))).entries());
+
+// Vue doesn't publicly export this constructor
+const Observer = Object.getPrototypeOf(Vue.observable({}).__ob__).constructor;
+
+export function blockObserver (obj) {
+  if (obj && !obj.hasOwnProperty('__ob__')) {
+    Object.defineProperty(obj, '__ob__', {
+      value: new Observer({}),
+      enumerable: false,
+      configurable: false,
+      writeable: false,
+    });
+  }
+
+  return obj;
+}

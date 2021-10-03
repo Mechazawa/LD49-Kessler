@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import { Sprite } from 'pixi.js';
 import game from '../index';
-import { randomPick } from '../../utils';
+import { blockObserver, randomPick } from '../../utils';
 
 export default class AbstractEntity extends EventEmitter {
   /**
@@ -23,7 +23,7 @@ export default class AbstractEntity extends EventEmitter {
     super();
 
     if (this.constructor.texture) {
-      this.sprite = new Sprite(game.loader.resources[randomPick(this.constructor.texture)].texture);
+      this.sprite = blockObserver(new Sprite(game.loader.resources[randomPick(this.constructor.texture)].texture));
     }
   }
 

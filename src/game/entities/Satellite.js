@@ -1,29 +1,28 @@
 import Orbital from './Orbital';
-import textures
-  from 'svg-to-png-loader?width=50&height=50&name=images/[name]-[width]x[height].png!@/assets/satellite-1.svg';
 import { first, randInt } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
-import Satellite1DebrisTiny from './Satellite1DebrisTiny';
-import Satellite1DebrisSmall from './Satellite1DebrisSmall';
-import Satellite1DebrisBig from './Satellite1DebrisBig';
 import entityStore from '../EntityStore';
 import Key from '../input/Key';
 
 export default class Satellite extends Orbital {
-  static texture = first(textures);
+  /**
+   * @abstract
+   * @type {number}
+   */
+  speed = 0.01;
 
-  speed = 0.05;
+  /**
+   * @abstract
+   * @type {number}
+   */
+  fuel = 0;
 
-  fuel = 200;
-
-  debris = [
-    Satellite1DebrisBig,
-    Satellite1DebrisSmall,
-    Satellite1DebrisTiny,
-  ];
-
-  collisionRadius = 15;
+  /**
+   * @abstract
+   * @type {constructor<Debris>[]}
+   */
+  debris = [];
 
   trail;
 
@@ -57,7 +56,7 @@ export default class Satellite extends Orbital {
     }
   }
 
-  update(delta) {
+  update (delta) {
     super.update(delta);
 
     this.sprite.alpha = this.fuel < 0 ? 0.8 : 1;

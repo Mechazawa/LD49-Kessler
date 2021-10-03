@@ -22,6 +22,7 @@ import Prediction from './game/entities/Prediction';
 import Explosion from './game/entities/Explosion';
 import SoundEffect from './game/SoundEffect';
 import { sounds } from './game/sound';
+import Satellite1 from './game/entities/Satellite1';
 
 
 export default {
@@ -62,6 +63,7 @@ export default {
     loadSounds () {
       return new Promise(resolve => {
         const fn = sounds.whenLoaded;
+
         sounds.whenLoaded = () => {
           fn?.();
           resolve();
@@ -76,7 +78,7 @@ export default {
           .add(unique([
             Planet.texture,
             Cat.texture,
-            Satellite.texture,
+            Satellite1.texture,
             'images/trail.png',
             CollisionWarning.texture,
             Satellite1DebrisBig.texture,
@@ -110,9 +112,9 @@ export default {
     startGame () {
       // entityStore.add(new Cat());
       entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
-      entityStore.add(new Satellite(200, 400, -1, -0.6));
-      entityStore.add(new Satellite(400, 600, 1.2, 0));
-      entityStore.add(new Satellite(300, 400, 0, 1.3));
+      entityStore.add(new Satellite1(200, 400, -1, -0.6));
+      entityStore.add(new Satellite1(400, 600, 1.2, 0));
+      entityStore.add(new Satellite1(300, 400, 0, 1.3));
 
       SoundEffect.ambient().play();
     },
