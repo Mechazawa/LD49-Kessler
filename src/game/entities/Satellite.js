@@ -55,7 +55,6 @@ export default class Satellite extends Orbital {
     if (this.selected) {
       this._handleInput(delta);
     }
-
   }
 
   _handleInput (delta) {

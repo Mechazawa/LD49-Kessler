@@ -8,6 +8,7 @@ import CollisionWarning from './CollisionWarning';
 import Highlight from './Highlight';
 import TrailPrediction from '../TrailPrediction';
 import Explosion from './Explosion';
+import SoundEffect from '../SoundEffect';
 
 
 export default class Orbital extends AbstractEntity {
@@ -54,6 +55,17 @@ export default class Orbital extends AbstractEntity {
     entityStore.tree.remove(this.lookaheadBBox);
 
     CollisionWarning.findForOrbital(this).forEach(x => x.destroy());
+
+    // todo maybe mope to explosion entity
+    this.playDestroySound();
+  }
+
+  playDestroySound () {
+    if(Math.random() > 0.7) {
+      SoundEffect.explosion2().play();
+    } else {
+      SoundEffect.explosion().play();
+    }
   }
 
   tick (delta) {

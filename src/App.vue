@@ -20,6 +20,9 @@ import Highlight from './game/entities/Highlight';
 import TrailPrediction from './game/TrailPrediction';
 import Prediction from './game/entities/Prediction';
 import Explosion from './game/entities/Explosion';
+import SoundEffect from './game/SoundEffect';
+import { sounds } from './game/sound';
+
 
 export default {
   name: 'app',
@@ -30,6 +33,7 @@ export default {
 
     window.entityStore = entityStore;
     window.game = game;
+    // window.sound = sound;
 
     game.loader.onProgress.add((loader, resource) => {
       // Display the file `url` currently being loaded
@@ -49,43 +53,69 @@ export default {
       // console.log("loading: " + resource.name);
     });
 
-    game.loader
-      .add(unique([
-        Planet.texture,
-        Cat.texture,
-        Satellite.texture,
-        'images/trail.png',
-        CollisionWarning.texture,
-        Satellite1DebrisBig.texture,
-        Satellite1DebrisSmall.texture,
-        Satellite1DebrisTiny.texture,
-        Highlight.texture,
-        TrailPrediction.texture,
-        Prediction.texture,
-        Explosion.texture,
-      ].flat()))
-      .load(() => {
-        // entityStore.add(new Cat());
-        entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
-        entityStore.add(new Satellite(200, 400, -1, -0.6));
-        entityStore.add(new Satellite(400, 600, 1.2, 0));
-        entityStore.add(new Satellite(300, 400, 0, 1.3));
+    this.loadSounds()
+      .then(() => this.loadGame())
+      .then(() => this.startGame())
+      .catch(e => console.error(e));
+  },
+  methods: {
+    loadSounds () {
+      return new Promise(resolve => {
+        const fn = sounds.whenLoaded;
+        sounds.whenLoaded = () => {
+          fn?.();
+          resolve();
+        };
 
-        const stats = new Stats();
-
-        this.$refs.game.appendChild(stats.dom);
-
-        game.ticker.add(delta => {
-          stats.begin();
-
-          if (!game.paused) {
-            entityStore.tick(delta);
-            entityStore.update(delta);
-          }
-
-          stats.end();
-        });
+        sounds.load(Object.keys(SoundEffect).map(x => SoundEffect[x].path ?? `sounds/${x}.wav`));
       });
+    },
+    loadGame () {
+      return new Promise(resolve => {
+        game.loader
+          .add(unique([
+            Planet.texture,
+            Cat.texture,
+            Satellite.texture,
+            'images/trail.png',
+            CollisionWarning.texture,
+            Satellite1DebrisBig.texture,
+            Satellite1DebrisSmall.texture,
+            Satellite1DebrisTiny.texture,
+            Highlight.texture,
+            TrailPrediction.texture,
+            Prediction.texture,
+            Explosion.texture,
+          ].flat()))
+          .load(() => {
+            const stats = new Stats();
+
+            this.$refs.game.appendChild(stats.dom);
+
+            game.ticker.add(delta => {
+              stats.begin();
+
+              if (!game.paused) {
+                entityStore.tick(delta);
+                entityStore.update(delta);
+              }
+
+              stats.end();
+            });
+
+            resolve();
+          });
+      });
+    },
+    startGame () {
+      // entityStore.add(new Cat());
+      entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
+      entityStore.add(new Satellite(200, 400, -1, -0.6));
+      entityStore.add(new Satellite(400, 600, 1.2, 0));
+      entityStore.add(new Satellite(300, 400, 0, 1.3));
+
+      SoundEffect.ambient().play();
+    },
   },
 };
 </script>

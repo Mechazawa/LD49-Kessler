@@ -11,4 +11,10 @@ module.exports = {
     'vue/script-indent': 0,
     'no-constructor-return': 'off',
   },
+  globals: {
+    sounds: 'readonly',
+  },
+  ignorePatterns: [
+    'sound.js',
+  ],
 };
