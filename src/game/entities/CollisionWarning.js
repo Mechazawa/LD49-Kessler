@@ -1,6 +1,6 @@
 import AbstractEntity from './AbstractEntity';
 import game from '../index';
-import textures from 'svg-to-png-loader?width=20&height=40&name=images/[name]-[width]x[height].png!@/assets/warning.svg';
+import textures from 'svg-to-png-loader?width=30&height=60&name=images/[name]-[width]x[height].png!@/assets/warning.svg';
 import { degToRad, first } from '../../utils';
 import entityStore from '../EntityStore';
 
@@ -10,11 +10,16 @@ export default class CollisionWarning extends AbstractEntity {
   ttl;
   satellites = [];
 
+  x; y;
+
   constructor (satellites, x, y, ttl) {
     super();
 
     this.sprite.anchor.set(0.75, 0.9);
     this.sprite.position.set(x, y);
+
+    this.x = x;
+    this.y = y;
 
     this.ttl = ttl;
     this.satellites = satellites;

@@ -17,6 +17,8 @@ import Satellite1DebrisBig from './game/entities/Satellite1DebrisBig';
 import Satellite1DebrisSmall from './game/entities/Satellite1DebrisSmall';
 import Satellite1DebrisTiny from './game/entities/Satellite1DebrisTiny';
 import Highlight from './game/entities/Highlight';
+import TrailPrediction from './game/TrailPrediction';
+import Prediction from './game/entities/Prediction';
 
 export default {
   name: 'app',
@@ -57,13 +59,15 @@ export default {
         Satellite1DebrisSmall.texture,
         Satellite1DebrisTiny.texture,
         Highlight.texture,
+        TrailPrediction.texture,
+        Prediction.texture,
       ].flat()))
       .load(() => {
         // entityStore.add(new Cat());
-        entityStore.add(new Planet(400, 300));
-        entityStore.add(new Satellite(250, 400, -1, -0.5));
-        entityStore.add(new Satellite(400, 500, 1.2, 0));
-        entityStore.add(new Satellite(500, 500, 1, 0));
+        entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
+        entityStore.add(new Satellite(200, 400, -1, -0.6));
+        entityStore.add(new Satellite(400, 600, 1.2, 0));
+        entityStore.add(new Satellite(300, 400, 0, 1.3));
 
         const stats = new Stats();
 
@@ -87,6 +91,22 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: auto;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#game canvas {
+  background-image: url("assets/background.svg");
+  background-size: cover;
+  background-position-x: 50%;
+
+  /*cursor: url("assets/cursor-pointer.svg") pointer;*/
+  /*cursor: url("assets/cursor-click.svg") click;*/
+  /*cursor: url("assets/cursor-default.svg") default;*/
+  /*cursor: url("assets/cursor-wait.svg") wait;*/
 }
 </style>

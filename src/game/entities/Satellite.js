@@ -53,7 +53,8 @@ export default class Satellite extends Orbital {
   }
 
   _handleInput () {
-    const speed = 0.1;
+    // todo replace with an angle to make diagonal velocity the same as horizontal/vertical
+    const speed = 0.03;
 
     if (this.controls.up.pressed) this.sprite.vy += speed;
 
@@ -68,6 +69,8 @@ export default class Satellite extends Orbital {
     super.destroy();
 
     this.trail.destroy();
+
+    this.deselect();
 
     Object
       .values(this.controls)

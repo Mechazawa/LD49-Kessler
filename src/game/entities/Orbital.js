@@ -6,6 +6,7 @@ import Planet from './Planet';
 import * as PIXI from 'pixi.js';
 import CollisionWarning from './CollisionWarning';
 import Highlight from './Highlight';
+import TrailPrediction from '../TrailPrediction';
 
 
 export default class Orbital extends AbstractEntity {
@@ -17,6 +18,7 @@ export default class Orbital extends AbstractEntity {
   lookaheadIndex = 0;
   lookaheadBBox;
   lookaheadUpdateThreshold;
+  lookaheadPreview;
 
   selected = false;
   highlight;
@@ -69,6 +71,8 @@ export default class Orbital extends AbstractEntity {
     }
 
     this.updateCollision();
+
+    this.lookaheadPreview?.tick(delta);
   }
 
   update (delta) {
@@ -99,6 +103,9 @@ export default class Orbital extends AbstractEntity {
     this.highlight = new Highlight(this);
 
     entityStore.add(this.highlight);
+
+    this.lookaheadUpdateThreshold = 1;
+    this.lookaheadPreview = new TrailPrediction(this);
   }
 
   deselect () {
@@ -106,6 +113,10 @@ export default class Orbital extends AbstractEntity {
 
     this.highlight?.destroy();
     this.highlight = null;
+
+    this.lookaheadUpdateThreshold = Math.floor(this.lookahead.length * 0.1);
+    this.lookaheadPreview?.destroy();
+    this.lookaheadPreview = null;
   }
 
   updateLookaheadSegments () {
@@ -145,14 +156,12 @@ export default class Orbital extends AbstractEntity {
 
       if (!intersection) continue;
 
-      if (!CollisionWarning.findForCollision(intersection, [this, ref])) {
-        entityStore.add(new CollisionWarning(
-          CollisionWarning.findForOrbital(this).length ? [ref, this] : [this, ref],
-          intersection.ap.x,
-          intersection.ap.y,
-          intersection.ttl,
-        ));
-      }
+      entityStore.add(new CollisionWarning(
+        CollisionWarning.findForOrbital(ref).length ? [this, ref] : [ref, this],
+        intersection.ap.x,
+        intersection.ap.y,
+        intersection.ttl,
+      ));
     }
 
     const planets = Array.from(entityStore.getEntitiesForType(Planet));
