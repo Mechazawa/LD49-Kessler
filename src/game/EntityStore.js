@@ -30,12 +30,12 @@ class EntityStore extends EventEmitter {
   }
 
   forEach (fn, type = null) {
-    if (!type) {
-      for (const entity of this._flatStore) {
+    if (type) {
+      for (const entity of this.store.get(type)) {
         fn(entity);
       }
     } else {
-      for (const entity of this.store.get(type)) {
+      for (const entity of this._flatStore) {
         fn(entity);
       }
     }

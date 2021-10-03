@@ -1,5 +1,5 @@
 import Orbital from './Orbital';
-import { first, randInt } from '../../utils';
+import { randInt } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
 import entityStore from '../EntityStore';
