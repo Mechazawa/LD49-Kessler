@@ -30,7 +30,7 @@ export default {
 <style scoped>
 .fixed {
   width: 400px;
-  height: 80vh;
+  height: 550px;
   overflow: hidden;
   position: absolute;
   display: block;

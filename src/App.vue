@@ -3,6 +3,7 @@
     <NewsCM/>
     <PauseCM v-if="paused"
              @toggle-music="toggleMusic"
+             @restart="restart"
              @dismiss="paused = false"/>
     <div id="game" ref="game"/>
   </div>
@@ -145,7 +146,7 @@ export default {
       // entityStore.add(new Sputnik(300, 400, 0, 1.3));
 
       window.spawn = (x, y, vx, vy) => entityStore.add(new Satelite1(x, y, vx, vy));
-      window.reset = () => Array.from(entityStore.getEntitiesForType(Orbital)).forEach(e => e.destroy());
+      window.reset = () => this.restart();
 
       if (!this.music) {
         SoundEffect.ambient().play();
@@ -160,6 +161,11 @@ export default {
       }
 
       this.music = !this.music;
+    },
+    restart () {
+      for (const entity of entityStore.getEntitiesForType(Orbital)) {
+        entity.destroy();
+      }
     },
   },
 };
