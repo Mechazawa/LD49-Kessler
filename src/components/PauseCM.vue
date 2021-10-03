@@ -1,7 +1,7 @@
 <template>
   <div class="fancyborder fixed">
     <!--    <CloseButton @click="$emit('dismiss')"/>-->
-    <h1>PAUSED</h1>
+    <img src="images/logo-big.svg"/>
     <h2 class="fancyborder" @click="$emit('dismiss')">Continue</h2>
     <h2 class="fancyborder" @click="$emit('restart')">Restart</h2>
     <h2 class="fancyborder" @click="$emit('controls')">Controls</h2>
@@ -39,6 +39,10 @@ export default {
   left: calc(40vw - 60px);
 
   background: rgba(50, 50, 50, 0.95);
+}
+
+img {
+  padding: 5px;
 }
 
 h2 {
