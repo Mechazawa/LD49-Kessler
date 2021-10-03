@@ -22,7 +22,7 @@ export default class Satellite extends Orbital {
    * @abstract
    * @type {constructor<Debris>[]}
    */
-  debris = [];
+  static debris = [];
 
   trail;
 
@@ -41,7 +41,7 @@ export default class Satellite extends Orbital {
     this.trail = new Trail(this, trailTexture, 20, 100);
     this.points = points;
 
-    this.debris.sort((a, b) => b.price - a.price);
+    this.constructor.debris.sort((a, b) => b.price - a.price);
 
     // for sat 1
     this.sprite.anchor.set(0.6, 0.6);
@@ -101,12 +101,14 @@ export default class Satellite extends Orbital {
   }
 
   _buyDebris () {
-    if (this.debris.length === 0) {
+    if (this.constructor.debris.length === 0) {
       return;
     }
 
     while (this.points > 0) {
-      for (const _Debris of this.debris) {
+      const last = this.points;
+
+      for (const _Debris of this.constructor.debris) {
         // replace with while for bias
         if (this.points >= _Debris.price) {
           this.points -= _Debris.price;
@@ -118,6 +120,10 @@ export default class Satellite extends Orbital {
 
           setTimeout(() => entityStore.add(new _Debris(x, y, vx, vy)), randInt(0, 300));
         }
+      }
+
+      if (last === this.points) {
+        return;
       }
     }
   }

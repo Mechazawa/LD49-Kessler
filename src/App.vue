@@ -10,19 +10,18 @@ import Cat from './game/entities/Cat';
 import Planet from './game/entities/Planet';
 import entityStore from './game/EntityStore';
 import { unique } from './utils';
-import Satellite from './game/entities/Satellite';
 import CollisionWarning from './game/entities/CollisionWarning';
 import Stats from 'stats.js';
-import Satellite1DebrisBig from './game/entities/Satellite1DebrisBig';
-import Satellite1DebrisSmall from './game/entities/Satellite1DebrisSmall';
-import Satellite1DebrisTiny from './game/entities/Satellite1DebrisTiny';
 import Highlight from './game/entities/Highlight';
 import TrailPrediction from './game/TrailPrediction';
 import Prediction from './game/entities/Prediction';
 import Explosion from './game/entities/Explosion';
 import SoundEffect from './game/SoundEffect';
 import { sounds } from './game/sound';
-import Satellite1 from './game/entities/Satellite1';
+import Satelite1 from './game/entities/Satellite1';
+import Sputnik from './game/entities/Sputnik';
+import Satelite3 from './game/entities/Satellite3';
+import Satelite2 from './game/entities/Satellite2';
 
 
 export default {
@@ -78,12 +77,16 @@ export default {
           .add(unique([
             Planet.texture,
             Cat.texture,
-            Satellite1.texture,
+            Satelite1.texture,
+            Satelite1.debris.map(d => d.texture).flat(),
+            Satelite2.texture,
+            Satelite2.debris.map(d => d.texture).flat(),
+            Satelite3.texture,
+            Satelite3.debris.map(d => d.texture).flat(),
+            Sputnik.texture,
+            Sputnik.debris.map(d => d.texture).flat(),
             'images/trail.png',
             CollisionWarning.texture,
-            Satellite1DebrisBig.texture,
-            Satellite1DebrisSmall.texture,
-            Satellite1DebrisTiny.texture,
             Highlight.texture,
             TrailPrediction.texture,
             Prediction.texture,
@@ -112,9 +115,9 @@ export default {
     startGame () {
       // entityStore.add(new Cat());
       entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
-      entityStore.add(new Satellite1(200, 400, -1, -0.6));
-      entityStore.add(new Satellite1(400, 600, 1.2, 0));
-      entityStore.add(new Satellite1(300, 400, 0, 1.3));
+      entityStore.add(new Satelite1(200, 400, -1, -0.6));
+      entityStore.add(new Satelite3(400, 600, 1.2, 0));
+      entityStore.add(new Sputnik(300, 400, 0, 1.3));
 
       SoundEffect.ambient().play();
     },
