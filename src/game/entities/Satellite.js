@@ -1,5 +1,6 @@
 import Orbital from './Orbital';
-import textures from 'svg-to-png-loader?width=50&height=50&name=images/[name]-[width]x[height].png!@/assets/satellite-1.svg';
+import textures
+  from 'svg-to-png-loader?width=50&height=50&name=images/[name]-[width]x[height].png!@/assets/satellite-1.svg';
 import { first, randInt } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
@@ -9,8 +10,14 @@ import Satellite1DebrisBig from './Satellite1DebrisBig';
 import entityStore from '../EntityStore';
 import Key from '../input/Key';
 
+const hashSpeed = Number.parseFloat(new URLSearchParams(location.hash.substr(1)).get('speed') ?? 0.3);
+
+console.log('🚀 speed: ' + hashSpeed);
+
 export default class Satellite extends Orbital {
   static texture = first(textures);
+
+  speed = hashSpeed;
 
   debris = [
     Satellite1DebrisBig,
@@ -53,16 +60,13 @@ export default class Satellite extends Orbital {
   }
 
   _handleInput () {
-    // todo replace with an angle to make diagonal velocity the same as horizontal/vertical
-    const speed = 0.03;
+    if (this.controls.up.pressed) this.sprite.vy += this.speed;
 
-    if (this.controls.up.pressed) this.sprite.vy += speed;
+    if (this.controls.down.pressed) this.sprite.vy -= this.speed;
 
-    if (this.controls.down.pressed) this.sprite.vy -= speed;
+    if (this.controls.left.pressed) this.sprite.vx += this.speed;
 
-    if (this.controls.left.pressed) this.sprite.vx += speed;
-
-    if (this.controls.right.pressed) this.sprite.vx -= speed;
+    if (this.controls.right.pressed) this.sprite.vx -= this.speed;
   }
 
   destroy () {
