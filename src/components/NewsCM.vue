@@ -10,6 +10,7 @@
 
 <script>
 import NewsArticle from './NewsArticle';
+import texts from '../assets/text.json';
 
 export default {
   name: 'news-c-m',
@@ -23,13 +24,14 @@ export default {
   },
   mounted () {
     window.news = this;
-
-    this.add({ title: 'Hello World!', value: 'Lorum ipsum and stuff ya know? badabing' });
-    this.add({ title: 'Hello World!', value: 'Lorum ipsum and stuff ya know? badabing bada bingb ada bingba dabing bad ab ingb adabing', image: 'images/cat.png' });
-    this.add({ title: 'Hello World!', value: 'Lorum ipsum and', image: 'images/cat.png' });
   },
   methods: {
     add (article) {
+      article = { ...article };
+
+      article.value = this.fillTemplate(article.value);
+      article.title = this.fillTemplate(article.title);
+
       this.articles.push(article);
     },
     remove (article) {
@@ -39,6 +41,9 @@ export default {
         this.articles.splice(index, 1);
       }
     },
+    fillTemplate (text) {
+      return text.replace(/\[(\w)]/g, (_, key) => texts[key]);
+    },
   },
 };
 </script>
@@ -46,5 +51,6 @@ export default {
 <style scoped>
 .snapLeft {
   position: absolute;
+  width: 300px;
 }
 </style>

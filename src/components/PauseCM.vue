@@ -14,7 +14,7 @@
 import game from '../game';
 
 export default {
-  name: "pause-c-m",
+  name: 'pause-c-m',
   components: {
     // CloseButton,
   },

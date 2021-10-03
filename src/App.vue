@@ -31,7 +31,7 @@ import NewsCM from './components/NewsCM';
 import EscapeRing from './game/entities/EscapeRing';
 import Orbital from './game/entities/Orbital';
 import PauseCM from './components/PauseCM';
-
+import Director from './game/Director';
 
 export default {
   name: 'app',
@@ -42,10 +42,13 @@ export default {
     return {
       paused: false,
       music: false,
+      director: new Director(),
     };
   },
   mounted () {
-    window.addEventListener('blur', () => this.paused = true);
+    window.addEventListener('blur', () => {
+      this.paused = true;
+    });
 
     window.addEventListener('keydown', ({ key }) => {
       if (key === 'Escape') {
@@ -128,6 +131,7 @@ export default {
               stats.begin();
 
               if (!game.paused) {
+                this.director.tick(delta);
                 entityStore.tick(delta);
                 entityStore.update(delta);
               }
@@ -168,6 +172,8 @@ export default {
       for (const entity of entityStore.getEntitiesForType(Orbital)) {
         entity.destroy();
       }
+
+      this.director = new Director();
     },
   },
 };

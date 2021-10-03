@@ -17,6 +17,8 @@ class EntityStore extends EventEmitter {
     }
 
     this._flatStore.add(entity);
+
+    return entity;
   }
 
   remove (entity) {

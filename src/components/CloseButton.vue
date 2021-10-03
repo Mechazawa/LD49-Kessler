@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "close-button",
+  name: 'close-button',
 };
 </script>
 

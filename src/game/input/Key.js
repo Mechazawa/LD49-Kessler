@@ -35,14 +35,15 @@ export default class Key extends EventEmitter {
   }
 
   destroy () {
-    const count = --Key._instances[this.key].count;
-
-    if (count > 0) {
-      return;
-    }
-
-    window.removeEventListener('keyup', this._handleUp);
-    window.removeEventListener('keydown', this._handleDown);
+    // todo fix or remove
+    // const count = --Key._instances[this.key].count;
+    //
+    // if (count > 0) {
+    //   return;
+    // }
+    //
+    // window.removeEventListener('keyup', this._handleUp);
+    // window.removeEventListener('keydown', this._handleDown);
   }
 
   _handleUp (event) {
