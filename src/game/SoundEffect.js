@@ -44,10 +44,13 @@ sounds.whenLoaded = () => {
   getSound('ambient').volume = 0.1;
   getSound('ambient').loop = true;
 
+  getSound('warning').volume = 0.5;
+
   Object.keys(SoundEffect).forEach(s => {
     getSound(s).volume *= volume;
   });
 };
 
+window.S = SoundEffect;
 
 export default SoundEffect;

@@ -81,8 +81,16 @@ export default class Orbital extends AbstractEntity {
     this.sprite.rotation = -angle;
 
     if (this.lookaheadIndex > this.lookaheadUpdateThreshold) {
+      const hadCollisionWarning = CollisionWarning.findForOrbital(this).some(x => x.satellites[0] === this);
+
       this.updateLookaheadSegments();
       this.updateCollisionLookahead();
+
+      const hasCollisionWarning = CollisionWarning.findForOrbital(this).some(x => x.satellites[0] === this);
+
+      if (!hadCollisionWarning && hasCollisionWarning) {
+        SoundEffect.warning().play();
+      }
     }
 
     this.updateCollision();
