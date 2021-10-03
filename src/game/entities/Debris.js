@@ -36,6 +36,9 @@ export default class Debris extends Orbital {
   }
 
   testCollisionLookahead (target) {
+    // todo maybe cheat a bit and move to orbital
+    //  code to make it work for prediction when
+    //  selected.
     if (target instanceof Debris) {
       return null;
     }

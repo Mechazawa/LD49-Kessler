@@ -1,5 +1,5 @@
 import Orbital from './Orbital';
-import textures from 'svg-to-png-loader?width=50&height=50&name=[name]-[width]x[height].png!@/assets/satellite-1.svg';
+import textures from 'svg-to-png-loader?width=50&height=50&name=images/[name]-[width]x[height].png!@/assets/satellite-1.svg';
 import { first, randInt } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
@@ -30,6 +30,9 @@ export default class Satellite extends Orbital {
     this.points = points;
 
     this.debris.sort((a, b) => b.price - a.price);
+
+    // for sat 1
+    this.sprite.anchor.set(0.6, 0.6)
   }
 
   tick (delta) {

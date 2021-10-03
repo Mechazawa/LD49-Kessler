@@ -1,6 +1,6 @@
 import AbstractEntity from './AbstractEntity';
 import game from '../index';
-import textures from 'svg-to-png-loader?width=20&height=40&name=[name]-[width]x[height].png!@/assets/warning.svg';
+import textures from 'svg-to-png-loader?width=20&height=40&name=images/[name]-[width]x[height].png!@/assets/warning.svg';
 import { degToRad, first } from '../../utils';
 import entityStore from '../EntityStore';
 

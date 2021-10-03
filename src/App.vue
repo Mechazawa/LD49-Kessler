@@ -16,6 +16,7 @@ import Stats from 'stats.js';
 import Satellite1DebrisBig from './game/entities/Satellite1DebrisBig';
 import Satellite1DebrisSmall from './game/entities/Satellite1DebrisSmall';
 import Satellite1DebrisTiny from './game/entities/Satellite1DebrisTiny';
+import Highlight from './game/entities/Highlight';
 
 export default {
   name: 'app',
@@ -55,10 +56,11 @@ export default {
         Satellite1DebrisBig.texture,
         Satellite1DebrisSmall.texture,
         Satellite1DebrisTiny.texture,
+        Highlight.texture,
       ].flat()))
       .load(() => {
-        entityStore.add(new Cat());
-        entityStore.add(new Planet());
+        // entityStore.add(new Cat());
+        entityStore.add(new Planet(400, 300));
         entityStore.add(new Satellite(250, 400, -1, -0.5));
         entityStore.add(new Satellite(400, 500, 1.2, 0));
         entityStore.add(new Satellite(500, 500, 1, 0));

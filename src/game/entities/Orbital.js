@@ -5,6 +5,7 @@ import entityStore from '../EntityStore';
 import Planet from './Planet';
 import * as PIXI from 'pixi.js';
 import CollisionWarning from './CollisionWarning';
+import Highlight from './Highlight';
 
 
 export default class Orbital extends AbstractEntity {
@@ -17,6 +18,9 @@ export default class Orbital extends AbstractEntity {
   lookaheadBBox;
   lookaheadUpdateThreshold;
 
+  selected = false;
+  highlight;
+
   constructor (x, y, vx, vy) {
     super();
 
@@ -25,6 +29,11 @@ export default class Orbital extends AbstractEntity {
 
     this.sprite.vx = vx;
     this.sprite.vy = vy;
+
+    this.sprite.interactive = true;
+    this.sprite.buttonMode = true;
+
+    this.sprite.on('pointerdown', e => this._onClick(e));
 
     game.stage.addChild(this.sprite);
 
@@ -71,6 +80,31 @@ export default class Orbital extends AbstractEntity {
   explode () {
     // todo explosion spawning
     this.destroy();
+  }
+
+  _onClick (event) {
+    if (this.selected) {
+      this.deselect();
+      return;
+    }
+
+    for (const entity of entityStore.getEntitiesForType(Orbital)) {
+      if (entity !== this) {
+        entity.deselect();
+      }
+    }
+
+    this.selected = true;
+    this.highlight = new Highlight(this);
+
+    entityStore.add(this.highlight);
+  }
+
+  deselect () {
+    this.selected = false;
+
+    this.highlight?.destroy();
+    this.highlight = null;
   }
 
   updateLookaheadSegments () {
@@ -134,7 +168,7 @@ export default class Orbital extends AbstractEntity {
     }
 
     const crashed = Array.from(entityStore.getEntitiesForType(Planet))
-      .some(e => !e.dead && Boolean(this.testCollision(e)))
+      .some(e => !e.dead && Boolean(this.testCollision(e)));
 
     if (crashed) {
       this.explode();
