@@ -45,6 +45,8 @@ export default {
     };
   },
   mounted () {
+    window.addEventListener('blur', () => this.paused = true);
+
     window.addEventListener('keydown', ({ key }) => {
       if (key === 'Escape') {
         this.paused = !this.paused;
