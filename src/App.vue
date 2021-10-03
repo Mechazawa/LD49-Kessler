@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <NewsCM/>
+    <PauseCM v-if="paused" @toggle-music="toggleMusic"/>
     <div id="game" ref="game"/>
   </div>
 </template>
@@ -26,14 +27,27 @@ import Satelite2 from './game/entities/Satellite2';
 import NewsCM from './components/NewsCM';
 import EscapeRing from './game/entities/EscapeRing';
 import Orbital from './game/entities/Orbital';
+import PauseCM from './components/PauseCM';
 
 
 export default {
   name: 'app',
   components: {
-    NewsCM,
+    NewsCM, PauseCM,
+  },
+  data () {
+    return {
+      paused: false,
+      music: false,
+    };
   },
   mounted () {
+    window.addEventListener('keydown', ({ key }) => {
+      if (key === 'Escape') {
+        this.paused = !this.paused;
+      }
+    }, false);
+
     this.$refs.game.appendChild(game.view);
 
     game.renderer.backgroundColor = 0x061639;
@@ -131,7 +145,19 @@ export default {
       window.spawn = (x, y, vx, vy) => entityStore.add(new Satelite1(x, y, vx, vy));
       window.reset = () => Array.from(entityStore.getEntitiesForType(Orbital)).forEach(e => e.destroy());
 
-      SoundEffect.ambient().play();
+      if (!this.music) {
+        SoundEffect.ambient().play();
+        this.music = true;
+      }
+    },
+    toggleMusic () {
+      if (this.music) {
+        SoundEffect.ambient().pause();
+      } else {
+        SoundEffect.ambient().play();
+      }
+
+      this.music = !this.music;
     },
   },
 };
