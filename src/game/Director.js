@@ -77,6 +77,8 @@ export default class Director {
   nextEvent () {
     const pick = Math.random();
 
+    console.log('nextEvent', pick);
+
     if (pick < 0.3) {
       this.news();
     } else if (pick < 0.6) {

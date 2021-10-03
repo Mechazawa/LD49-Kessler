@@ -32,7 +32,7 @@ export default {
       article.value = this.fillTemplate(article.value);
       article.title = this.fillTemplate(article.title);
 
-      this.articles.push(article);
+      this.articles.unshift(article);
     },
     remove (article) {
       const index = this.articles.indexOf(article);
