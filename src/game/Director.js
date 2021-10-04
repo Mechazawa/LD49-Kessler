@@ -17,10 +17,12 @@ export default class Director {
 
   eventChance = 0.8;
 
+  gameOver = false;
+
   timers = [
     [0, () => window.news.add({
       title: 'Space Race Begins',
-      value: 'Starburst IX launches their first satellite [satellite]',
+      value: 'Starburst IX launches their first satellite "[satellite]"',
     })],
     [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15))],
     [20, () => window.news.add({
@@ -45,7 +47,7 @@ export default class Director {
     })],
     [200, () => window.news.add({
       title: 'Enviromental Report',
-      value: 'Air is becoming increasingly dificult to breath due to smog, [state] is starting new research in usage of farts to combat smog.',
+      value: 'Air is becoming increasingly difficult to breath due to smog, [state] is starting new research in usage of farts to combat smog.',
     })],
     [120, () => window.news.add({
       title: 'Enviromental Report',
@@ -56,6 +58,7 @@ export default class Director {
   tick (delta) {
     this.timeElapsed += delta * (1 / game.ticker.speed / 60);
 
+    // random event
     if (this.timeElapsed - this.lastEvent > this.interval) {
       this.lastEvent = this.timeElapsed;
 
@@ -64,6 +67,7 @@ export default class Director {
       }
     }
 
+    //
     for (const timer of this.timers) {
       if (timer[0] < 0) continue;
 
@@ -76,8 +80,6 @@ export default class Director {
 
   nextEvent () {
     const pick = Math.random();
-
-    console.log('nextEvent', pick);
 
     if (pick < 0.3) {
       this.news();

@@ -11,6 +11,7 @@
 <script>
 import NewsArticle from './NewsArticle';
 import texts from '../assets/text.json';
+import { randomPick } from '../utils';
 
 export default {
   name: 'news-c-m',
@@ -27,12 +28,11 @@ export default {
   },
   methods: {
     add (article) {
-      article = { ...article };
-
-      article.value = this.fillTemplate(article.value);
-      article.title = this.fillTemplate(article.title);
-
-      this.articles.unshift(article);
+      this.articles.unshift({
+        value: this.fillTemplate(article.value || ''),
+        title: this.fillTemplate(article.title || ''),
+        image: this.fillTemplate(article.image || ''),
+      });
     },
     remove (article) {
       const index = this.articles.indexOf(article);
@@ -42,7 +42,7 @@ export default {
       }
     },
     fillTemplate (text) {
-      return text.replace(/\[(\w)]/g, (_, key) => texts[key]);
+      return text.replace(/\[(\w+)]/g, (_, key) => randomPick(texts[key]));
     },
   },
 };
