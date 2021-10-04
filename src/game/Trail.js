@@ -21,13 +21,22 @@ export default class Trail {
     const { x = 0, y = 0 } = parent.sprite;
 
     this.points = arrGen(() => new Point(x, y), length);
-    this.history.x = arrGen(x, length);
-    this.history.y = arrGen(y, length);
+    this.history.x = arrGen(x, historyLength);
+    this.history.y = arrGen(y, historyLength);
 
     this.rope = blockObserver(new SimpleRope(texture, this.points));
     this.rope.blendMode = PIXI.BLEND_MODES.ADD;
 
     game.stage.addChildAt(this.rope, 0);
+  }
+
+  reset () {
+    for (let i = 0; i < this.points.length && !this.parent.dead; i++) {
+      this.points[i].set(this.parent.sprite.x, this.parent.sprite.y)
+    }
+
+    this.history.x = arrGen(this.parent.sprite.x, this.history.x.length);
+    this.history.y = arrGen(this.parent.sprite.y, this.history.y.length);
   }
 
   destroy () {

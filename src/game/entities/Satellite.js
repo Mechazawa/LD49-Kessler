@@ -184,13 +184,17 @@ export default class Satellite extends Orbital {
     }
   }
 
-  moveToSafeCoordinates (safeDistance = 180, maxTries = 500) {
+  moveToSafeCoordinates (safeDistance = 180, maxTries = launchCoordinates.length) {
     const oldRad = this.collisionRadius;
+    const possible = Array.from(launchCoordinates);
 
     this.nearestCollision = 0;
 
-    for (let tries = maxTries; tries >= 0 && this.nearestCollision < safeDistance; tries--) {
-      const [x, y, vx, vy] = randomPick(launchCoordinates);
+    for (let tries = maxTries; possible.length && tries >= 0 && this.nearestCollision < safeDistance; tries--) {
+      const pick = randomPick(possible);
+      const [x, y, vx, vy] = pick;
+
+      possible.splice(possible.indexOf(pick), 1);
 
       this.sprite.x = x;
       this.sprite.y = y;
@@ -206,6 +210,6 @@ export default class Satellite extends Orbital {
     console.log('collisionRadius', oldRad, '=>', this.collisionRadius);
 
     this.collisionRadius = oldRad;
-
+    this.trail.reset();
   }
 }
