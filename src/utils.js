@@ -103,5 +103,3 @@ export function debug (...args) {
 
   return env.hasOwnProperty('debug');
 }
-
-debug('env', env);
