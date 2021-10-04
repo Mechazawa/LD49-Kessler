@@ -24,6 +24,7 @@ Thank you, Chris!
 
 */
 
+const { debug } = require('../utils');
 (function (global, exports, perf) {
   'use strict';
 

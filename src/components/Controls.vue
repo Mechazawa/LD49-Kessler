@@ -69,7 +69,6 @@ div {
 
   max-height: 80vh;
   margin-top: 10vh;
-  margin-bottom: 10vh;
   left: calc(50vw - 400px);
 
   background: rgba(50, 50, 50, 0.95);
