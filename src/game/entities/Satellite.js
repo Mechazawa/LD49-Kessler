@@ -181,8 +181,8 @@ export default class Satellite extends Orbital {
     }
   }
 
-  moveToSafeCoordinates (safeDistance = 180) {
-    for (let tries = 50; tries > 0 && this.nearestCollision < safeDistance; tries--) {
+  moveToSafeCoordinates (safeDistance = 180, maxTries = 200) {
+    for (let tries = maxTries; tries > 0 && this.nearestCollision < safeDistance; tries--) {
       const [x, y, vx, vy] = randomPick(launchCoordinates);
 
       this.sprite.x = x;

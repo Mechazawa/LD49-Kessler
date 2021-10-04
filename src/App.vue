@@ -1,15 +1,19 @@
 <template>
   <div id="app">
     <NewsCM/>
-    <PauseMenu v-if="paused && !director.gameOver"
+    <PauseMenu v-if="paused && !director.gameOver && !highScore"
                @toggle-music="toggleMusic"
                @restart="restart"
+               @high-score="highScore = true"
                @dismiss="paused = false"/>
     <GameOver v-if="director.gameOver"
               :score="director.score"
               :time="director.timeElapsed"
               @submit="submitScore"
               @restart="restart"/>
+    <HighScore v-if="highScore"
+               :value="scores"
+               @dismiss="highScore = false"/>
     <div id="game" ref="game"/>
     <ScoreCounter :value="director.score"/>
   </div>
@@ -20,7 +24,7 @@ import game from './game';
 import Cat from './game/entities/Cat';
 import Planet from './game/entities/Planet';
 import entityStore from './game/EntityStore';
-import { randInt, randomPick, unique } from './utils';
+import { env, randInt, randomPick, unique } from './utils';
 import CollisionWarning from './game/entities/CollisionWarning';
 import Stats from 'stats.js';
 import Highlight from './game/entities/Highlight';
@@ -41,28 +45,33 @@ import Director from './game/Director';
 import ScoreCounter from './components/ScoreCounter';
 import GameOver from './components/GameOver';
 import texts from './assets/text.json';
+import HighScore from './components/HighScore';
 
 export default {
   name: 'app',
   components: {
-    NewsCM, PauseMenu, ScoreCounter, GameOver,
+    NewsCM, PauseMenu, ScoreCounter, GameOver, HighScore,
   },
   data () {
     return {
       paused: false,
       music: false,
+      highScore: false,
+      scores: [],
       director: new Director(),
     };
   },
   mounted () {
     if (!localStorage.getItem('highScores')) {
-      localStorage.setItem('highScores', [
+      localStorage.setItem('highScores', JSON.stringify(this.scores = [
         {
           name: randomPick(texts.alien),
           time: Math.round(randInt(20, 60)),
           score: 3619,
         },
-      ]);
+      ]));
+    } else {
+      this.scores = JSON.parse(localStorage.highScores);
     }
 
     window.addEventListener('blur', () => {
@@ -102,12 +111,13 @@ export default {
       // console.log("loading: " + resource.name);
     });
 
-    this.loadSounds()
-      .then(() => this.loadGame())
-      .then(() => this.startGame())
-      .catch(e => console.error(e));
+    this.boot();
   },
   methods: {
+    async boot () {
+      await Promise.all([this.loadSounds(), this.loadGame()]);
+      await this.startGame();
+    },
     loadSounds () {
       return new Promise(resolve => {
         const fn = sounds.whenLoaded;
@@ -143,9 +153,14 @@ export default {
             EscapeRing.texture,
           ].flat()))
           .load(() => {
+            entityStore.add(new EscapeRing());
+            entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
+
             const stats = new Stats();
 
-            // this.$refs.game.appendChild(stats.dom);
+            if (env.debug) {
+              this.$refs.game.appendChild(stats.dom);
+            }
 
             game.ticker.add(delta => {
               stats.begin();
@@ -165,8 +180,6 @@ export default {
     },
     startGame () {
       // entityStore.add(new Cat());
-      entityStore.add(new EscapeRing());
-      entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
       // entityStore.add(new Satelite1(200, 400, -1, -0.6));
       // entityStore.add(new Satelite3(400, 600, 1.2, 0));
       // entityStore.add(new Sputnik(300, 400, 0, 1.3));
@@ -204,8 +217,8 @@ export default {
 
       window.news.clear();
     },
-    tempMute (name, time = 500) {
-      const old = SoundEffect[name]().volum;
+    tempMute (name, time = 800) {
+      const old = SoundEffect[name]().volume;
 
       SoundEffect[name]().volume = 0;
 
@@ -215,20 +228,21 @@ export default {
       }, time);
     },
     submitScore (name) {
-      const scores = localStorage.getItem('highScores');
-
-      scores.push({
+      this.scores.push({
         name,
         time: this.director.timeElapsed,
         score: this.director.score,
       });
 
-      scores.sort((a, b) => b.score - a.score);
+      this.scores.sort((a, b) => b.score - a.score);
+      this.scores.splice(20);
 
-      localStorage.setItem('highScores', scores);
+      localStorage.setItem('highScores', JSON.stringify(this.scores));
 
       // todo show high score screen
       this.restart();
+
+      this.highScore = true;
     },
   },
 };

@@ -14,7 +14,7 @@ export default class DebrisBig extends Debris {
   collisionRadius = 10;
 
   explode () {
-    for(let i = Math.floor(randInt(1, 4)); !this.dead && !this.invincible && i > 0; i--) {
+    for (let i = Math.floor(randInt(1, 4)); !this.dead && !this.invincible && i > 0; i--) {
       let { x, y, vx, vy } = this.sprite;
 
       vx += randInt(vx * -0.5, vx * 0.5);
