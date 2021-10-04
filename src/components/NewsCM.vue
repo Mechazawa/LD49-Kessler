@@ -1,6 +1,6 @@
 <template>
   <div class="snapLeft">
-    <h1 class="fancyborder">Latest News</h1>
+    <h1 class="fancyborder">Margoba News</h1>
     <NewsArticle v-for="(article, index) of articles"
                  v-bind="article"
                  :key="index"
