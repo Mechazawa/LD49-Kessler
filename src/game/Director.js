@@ -32,22 +32,10 @@ export default class Director {
     [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15)).moveToSafeCoordinates()],
     [0, () => this.launch()],
     [0, () => this.launch()],
-    [20, () => window.news.add({
-      title: 'Population Growth',
-      value: 'Starburst IX just got their 500.000th Margobian.',
-    })],
-    [50, () => window.news.add({
-      title: 'Population Growth',
-      value: 'Starburst IX just got their 1.000.000th Margobian.',
-    })],
-    [200, () => window.news.add({
-      title: 'Population Growth',
-      value: 'Starburst IX just got their 5.000.000th Margobian.',
-    })],
-    [300, () => window.news.add({
-      title: 'Population Growth',
-      value: 'Starburst IX just got their 10.000.000th Margobian.',
-    })],
+    ...texts.population.map((amount, i) => [i * 60, () => window.news.add({
+      title: "Population Growth",
+      value: `Starburst IX just got their ${amount}th Margobian.`,
+    })]),
     [240, () => window.news.add({
       title: 'Enviromental Report',
       value: 'Air is becoming increasingly difficult to breath due to smog, [state] is starting new research in usage of farts to combat smog.',
