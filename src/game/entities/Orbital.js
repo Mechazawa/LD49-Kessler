@@ -35,11 +35,6 @@ export default class Orbital extends AbstractEntity {
     this.sprite.vx = vx;
     this.sprite.vy = vy;
 
-    this.sprite.interactive = true;
-    this.sprite.buttonMode = true;
-
-    this.sprite.on('pointerdown', e => this._onClick(e));
-
     game.stage.addChild(this.sprite);
 
     this.lookaheadUpdateThreshold = Math.floor(this.lookahead.length * 0.1);
@@ -47,6 +42,13 @@ export default class Orbital extends AbstractEntity {
     this.updateCollisionLookahead();
 
     // game.stage.addChild(new PIXI.SimpleRope(trailTexture, this.lookahead));
+  }
+
+  registerInteractivity () {
+    this.sprite.interactive = true;
+    this.sprite.buttonMode = true;
+
+    this.sprite.on('pointerdown', e => this._onClick(e));
   }
 
   setLookaheadSize (size) {

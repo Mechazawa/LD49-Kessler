@@ -54,6 +54,8 @@ export default class Satellite extends Orbital {
     SoundEffect.deploy().play();
 
     entityStore.add(new FuelGauge(this));
+
+    this.registerInteractivity();
   }
 
   tick (delta) {
@@ -187,6 +189,7 @@ export default class Satellite extends Orbital {
   moveToSafeCoordinates (safeDistance = 180, maxTries = launchCoordinates.length) {
     const oldRad = this.collisionRadius;
     const possible = Array.from(launchCoordinates);
+    const attempts = [];
 
     this.nearestCollision = 0;
 
@@ -201,11 +204,13 @@ export default class Satellite extends Orbital {
       this.sprite.vx = vx;
       this.sprite.vy = vy;
 
-      this.collisionRadius = oldRad + (tries / maxTries) * 30;
+      this.collisionRadius = oldRad + (tries / maxTries) * 20;
 
       this.updateCollisionLookahead();
+      attempts.push([this.nearestCollision, pick])
     }
 
+    console.log('tries', attempts.length);
     console.log('nearestCollision', this.nearestCollision);
     console.log('collisionRadius', oldRad, '=>', this.collisionRadius);
 
