@@ -14,7 +14,7 @@ export default class Director {
 
   lastEvent = 0;
 
-  interval = 20;
+  interval = 15;
 
   eventChance = 0.8;
 
@@ -92,9 +92,9 @@ export default class Director {
   nextEvent () {
     const pick = Math.random();
 
-    if (pick < 0.3) {
+    if (pick < 0.1) {
       this.news();
-    } else if (pick < 0.6) {
+    } else if (pick < 0.5) {
       this.launchWithNews();
     } else {
       this.launch();
