@@ -63,7 +63,7 @@ export default class Trail {
     }
   }
 
-  update(delta) {
+  update (delta) {
     super.update(delta);
 
     this.rope.alpha = this.parent.sprite.alpha;

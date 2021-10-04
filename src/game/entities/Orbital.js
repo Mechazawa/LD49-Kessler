@@ -53,7 +53,9 @@ export default class Orbital extends AbstractEntity {
 
   setLookaheadSize (size) {
     while (this.lookahead.length < size) this.lookahead.push(new PIXI.Point(0, 0));
+
     while (this.lookahead.length > size) this.lookahead.shift();
+
     this.updateLookaheadSegments();
   }
 
