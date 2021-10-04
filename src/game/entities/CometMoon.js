@@ -6,12 +6,12 @@ export default class CometMoon extends Comet {
   static price = 5;
 
   static texture = [
-    first(require('svg-to-png-loader?width=60&height=60&name=images/[name]-[width]x[height].png!@/assets/comet-moon-1.svg')),
-    first(require('svg-to-png-loader?width=60&height=60&name=images/[name]-[width]x[height].png!@/assets/comet-moon-2.svg')),
-    first(require('svg-to-png-loader?width=60&height=60&name=images/[name]-[width]x[height].png!@/assets/comet-moon-3.svg')),
+    first(require('svg-to-png-loader?width=70&height=70&name=images/[name]-[width]x[height].png!@/assets/comet-moon-1.svg')),
+    first(require('svg-to-png-loader?width=70&height=70&name=images/[name]-[width]x[height].png!@/assets/comet-moon-2.svg')),
+    first(require('svg-to-png-loader?width=70&height=70&name=images/[name]-[width]x[height].png!@/assets/comet-moon-3.svg')),
   ]
 
-  collisionRadius = 30;
+  collisionRadius = 35;
 
   explode () {
     for (let i = Math.floor(randInt(3, 6)); !this.dead && !this.invincible && i > 0; i--) {

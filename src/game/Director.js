@@ -152,7 +152,7 @@ export default class Director {
       [10, 745, -0.9, 1.3]
     ];
 
-    entityStore.add(new CometMoon(...randomPick(launchCoordinates)));
+    entityStore.add(new CometMoon(...randomPick(spawnPoints)));
   }
 }
 
