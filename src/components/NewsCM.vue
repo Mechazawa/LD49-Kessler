@@ -62,5 +62,10 @@ export default {
 .snapLeft {
   position: absolute;
   width: 300px;
+  height: 100vh;
+  overflow:hidden;
+}
+h1 {
+  width: 270px;
 }
 </style>

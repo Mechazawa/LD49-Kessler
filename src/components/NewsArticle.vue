@@ -4,8 +4,7 @@
     <div v-if="image" class="fancyborder fixed">
       <img :src="image" width="80%"/>
     </div>
-    <h1 v-if="title && !image" v-text="title"/>
-    <h2 v-if="title && image" v-text="title"/>
+    <h2 v-if="title" v-text="title"/>
     <p v-if="value" v-text="value"/>
   </div>
 </template>
@@ -50,7 +49,7 @@ img {
 
 div {
   background: rgba(50,50,50,0.95);
-  width: 300px;
+  width: 270px;
 }
 
 h1, h2, p {

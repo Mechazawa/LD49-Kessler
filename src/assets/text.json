@@ -94,16 +94,34 @@
     "weather observation",
     "climate research"
   ],
+  "age": [424,819,74,16,27,134,5,65],
   "news": [
     {"title": "Politics", "image": "images/photo-war.svg", "value": "Chief [alien], [state] has declared war on [state]!"},
     {"title": "Politics", "value": "Chief [alien] has walked out of a meeting with Chief [alien], new environmental laws have been delayed."},
     {"title": "Politics", "image": "images/photo-sailor.svg", "value": "[alien] has been promoted to Chief of [state]."},
     {"title": "Entertainment", "value": "[state] has started their annual circus!"},
     {"title": "Politics", "image": "images/photo-angry.svg", "value": "[state] has imposed a new law, it is no longer allowed to have a clown-noses. All current owners of clown-noses have a week to hand these in with out consequences."},
-    {"title": "Entertainment", "image": "images/photo-sailor.svg", "value": "it is Chief [alien] birthday, happy [amount]th Chief!"},
+    {"title": "Entertainment", "image": "images/photo-sailor.svg", "value": "it is Chief [alien] birthday, happy [age]th Chief!"},
     {"title": "Science", "value": "[state] proclaim to have found evidence of life in the galaxy."},
     {"title": "Entertainment", "image": "images/photo-wealthy.svg", "value": "[state] opened a new zoo, Red Pine Nursery."},
-    {"title": "Entertainment", "value": "New record! in [state], [alien] has broken the record of longest nose by 2mm."}
+    {"title": "Entertainment", "value": "New record! in [state], [alien] has broken the record of longest nose by 2mm."},
+
+    {"title": "Politics", "value": "New tariff agreements between [state] and [state], has caused for an increase in the ."},
+    {"title": "Politics", "value": "In [state] \"Gaming\" has been declared the national passtime."},
+
+
+    {"title": "Climate", "value": "air has been clearing up a bit, morgobians are starting to do stuff again."},
+    {"title": "Climate", "value": "the water of starburst is becoming less sour."},
+    {"title": "Climate", "value": "the climate is getting colder and colder on starburst IX.,"},
+
+    {"title": "Weather", "value": "the cold season has begon. all Morgobians have been asked to keep wood burning to a minimum due to wood shortages."},
+    {"title": "Weather", "value": "heavy rain still has not stopt in [state], day 287 and still going..."},
+    {"title": "Weather", "value": "warm season is getting shorter, the climate change is causing wood shortages."},
+    {"title": "Weather", "value": "fast and sudden night frost has caused pipes to break, most damage in [state]."},
+    {"title": "Weather", "value": "cold season is getting even colder, all Morgobian's have mandetory holiday for the week. No one is alowed to leave home."},
+    {"title": "Weather", "value": "winds sotrm is coming to starburst IX in 1 day."},
+    {"title": "Weather", "value": "[state] and [state] heavily hit by rain storms."},
+    {"title": "Weather", "value": "[state], [state] and [state] greatly hit with wind storms, few houses has been blown away."}
   ],
   "population": [
     "500.000",
