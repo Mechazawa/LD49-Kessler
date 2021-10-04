@@ -51,6 +51,8 @@ import texts from './assets/text.json';
 import HighScore from './components/HighScore';
 import { FuelGauge } from './game/FuelGauge';
 import Controls from './components/Controls';
+import Comet from './game/entities/Comet';
+import CometMoon from './game/entities/CometMoon';
 
 export default {
   name: 'app',
@@ -164,6 +166,8 @@ Controls,
             EscapeRing.texture,
             FuelGauge.texture,
             FuelGauge.texture2,
+            Comet.texture,
+            CometMoon.texture,
           ].flat()))
           .load(() => {
             entityStore.add(new EscapeRing());
