@@ -1,12 +1,12 @@
 import AbstractEntity from './AbstractEntity';
 import game from '../index';
-import textures from 'svg-to-png-loader?width=80&height=80&name=images/[name]-[width]x[height].png!@/assets/planet.svg';
+import textures from 'svg-to-png-loader?width=100&height=100&name=images/[name]-[width]x[height].png!@/assets/planet.svg';
 import { degToRad, first } from '../../utils';
 
 export default class Planet extends AbstractEntity {
   static texture = first(textures);
 
-  collisionRadius = 40;
+  collisionRadius = 50;
 
   mass = 5.975e24;
   gravity = 6.6742e-11;
