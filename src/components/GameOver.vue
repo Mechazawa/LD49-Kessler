@@ -81,12 +81,16 @@ h2:before {
 }
 
 input {
-z-index: 100;
+  z-index: 100;
+}
+
+input:focus {
+outline: solid 3px #00e5d2;
 }
 
 input {
   background: transparent;
-  color:white;
+  color: white;
   padding: 3px 10px;
   font-family: Helvetica, Arial, sans-serif;
   width: 230px;
