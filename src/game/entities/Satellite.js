@@ -206,15 +206,34 @@ export default class Satellite extends Orbital {
 
       this.collisionRadius = oldRad + (tries / maxTries) * 20;
 
+      this.updateLookaheadSegments();
       this.updateCollisionLookahead();
-      attempts.push([this.nearestCollision, pick])
+      attempts.push([this.nearestCollision, pick]);
     }
 
+    this.collisionRadius = oldRad;
+
     console.log('tries', attempts.length);
+
+    if (this.collisionRadius < safeDistance) {
+      const [expected, [x, y, vx, vy]] = attempts.sort((a, b) => b[0] - a[0])[0];
+
+      this.sprite.x = x;
+      this.sprite.y = y;
+      this.sprite.vx = vx;
+      this.sprite.vy = vy;
+
+      console.log('attempts', attempts);
+
+      console.log('nearestCollision[old]', this.nearestCollision, 'expecting', expected);
+
+      this.updateLookaheadSegments();
+      this.updateCollisionLookahead();
+    }
+
     console.log('nearestCollision', this.nearestCollision);
     console.log('collisionRadius', oldRad, '=>', this.collisionRadius);
 
-    this.collisionRadius = oldRad;
     this.trail.reset();
   }
 }
