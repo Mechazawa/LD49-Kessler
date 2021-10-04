@@ -14,7 +14,7 @@ export default class CometMoon extends Comet {
   collisionRadius = 35;
 
   explode () {
-    for (let i = Math.floor(randInt(3, 6)); !this.dead && !this.invincible && i > 0; i--) {
+    for (let i = Math.floor(randInt(4, 7)); !this.dead && !this.invincible && i > 0; i--) {
       let { x, y, vx, vy } = this.sprite;
 
       vx += randInt(vx * -0.5, vx * 0.5);
