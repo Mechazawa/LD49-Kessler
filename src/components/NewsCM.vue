@@ -36,6 +36,8 @@ export default {
       });
 
       if (this.articles.length > 6) this.articles.shift();
+
+      SoundEffect.newsFeed().play();
     },
     remove (article) {
       const index = this.articles.indexOf(article);

@@ -34,6 +34,9 @@ const SoundEffect = {
   },
   newsDismiss () {
     return getSound('newsDismiss');
+  },
+  newsFeed () {
+    return getSound('newsFeed');
   }
 };
 
