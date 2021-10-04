@@ -55,7 +55,7 @@ export default class AbstractEntity extends EventEmitter {
   destroy () {
     this.removeAllListeners();
 
-    if (this.sprite._texture) {
+    if (this.sprite && this.sprite._texture) {
       game.stage.removeChild(this.sprite);
       this.sprite.destroy();
     }
