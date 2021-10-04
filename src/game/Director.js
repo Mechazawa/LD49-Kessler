@@ -96,10 +96,10 @@ export default class Director {
       this.news();
     } else if (pick < 0.4) {
       this.launchWithNews();
-    } else if (pick < 0.5)  {
+    } else if (pick < 0.5) {
       this.launch();
       this.launch();
-    } else  {
+    } else {
       this.launch();
     }
   }
