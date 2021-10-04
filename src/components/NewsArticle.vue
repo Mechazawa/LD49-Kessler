@@ -4,7 +4,8 @@
     <div v-if="image" class="fancyborder fixed">
       <img :src="image" width="80%"/>
     </div>
-    <h1 v-if="title" v-text="title"/>
+    <h1 v-if="title && !image" v-text="title"/>
+    <h2 v-if="title && image" v-text="title"/>
     <p v-if="value" v-text="value"/>
   </div>
 </template>
@@ -40,8 +41,8 @@ img {
 .fixed {
   position: relative;
   display: block;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin-right: 5px;
   float: left;
   text-align: center;
@@ -52,9 +53,8 @@ div {
   width: 300px;
 }
 
-h1, p {
-  margin-top: 0.2em;
-  margin-bottom: 0.1em;
+h1, h2, p {
+  margin: 8px 8px 4px;
   font-family: Helvetica, sans-serif;
 }
 

@@ -13,7 +13,7 @@ export default class Sputnik extends Satellite {
     DebrisSmall,
   ];
 
-  speed = 0.02;
+  speed = 0.005;
 
   fuel = 100;
 

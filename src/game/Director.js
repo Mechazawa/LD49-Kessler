@@ -14,7 +14,7 @@ export default class Director {
 
   lastEvent = 0;
 
-  interval = 15;
+  interval = 13;
 
   eventChance = 0.8;
 
@@ -25,6 +25,7 @@ export default class Director {
   timers = [
     [0, () => window.news.add({
       title: 'Space Race Begins',
+      image: "images/photo-positive.svg",
       value: 'Starburst IX launches their first satellite "[satellite]"',
     })],
     [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15)).moveToSafeCoordinates()],

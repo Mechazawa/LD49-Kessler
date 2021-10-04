@@ -95,14 +95,14 @@
     "climate research"
   ],
   "news": [
-    {"title": "Politics", "value": "Chief [alien], [state] has declared war on [state]!"},
+    {"title": "Politics", "image": "images/photo-war.svg", "value": "Chief [alien], [state] has declared war on [state]!"},
     {"title": "Politics", "value": "Chief [alien] has walked out of a meeting with Chief [alien], new environmental laws have been delayed."},
-    {"title": "Politics", "value": "[alien] has been promoted to Chief of [state]."},
+    {"title": "Politics", "image": "images/photo-sailor.svg", "value": "[alien] has been promoted to Chief of [state]."},
     {"title": "Entertainment", "value": "[state] has started their annual circus!"},
-    {"title": "Politics", "value": "[state] has imposed a new law, it is no longer allowed to have a clown-noses. All current owners of clown-noses have a week to hand these in with out consequences."},
-    {"title": "Entertainment", "value": "it is Chief [alien] birthday, happy [amount]th Chief!"},
+    {"title": "Politics", "image": "images/photo-angry.svg", "value": "[state] has imposed a new law, it is no longer allowed to have a clown-noses. All current owners of clown-noses have a week to hand these in with out consequences."},
+    {"title": "Entertainment", "image": "images/photo-sailor.svg", "value": "it is Chief [alien] birthday, happy [amount]th Chief!"},
     {"title": "Science", "value": "[state] proclaim to have found evidence of life in the galaxy."},
-    {"title": "Entertainment", "value": "[state] opened a new zoo, Red Pine Nursery."},
+    {"title": "Entertainment", "image": "images/photo-wealthy.svg", "value": "[state] opened a new zoo, Red Pine Nursery."},
     {"title": "Entertainment", "value": "New record! in [state], [alien] has broken the record of longest nose by 2mm."}
   ]
 }
