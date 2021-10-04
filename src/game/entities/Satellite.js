@@ -178,9 +178,7 @@ export default class Satellite extends Orbital {
     }
   }
 
-  moveToSafeCoordinates () {
-    const safeDistance = 180;
-
+  moveToSafeCoordinates (safeDistance = 180) {
     for (let tries = 50; tries > 0 && this.nearestCollision < safeDistance; tries--) {
       const [x, y, vx, vy] = randomPick(launchCoordinates);
 
@@ -191,7 +189,5 @@ export default class Satellite extends Orbital {
 
       this.updateCollisionLookahead();
     }
-
-    console.log('nearestCollision', this.nearestCollision);
   }
 }

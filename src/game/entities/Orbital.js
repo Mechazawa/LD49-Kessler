@@ -49,6 +49,11 @@ export default class Orbital extends AbstractEntity {
     // game.stage.addChild(new PIXI.SimpleRope(trailTexture, this.lookahead));
   }
 
+  setLookaheadSize (size) {
+    this.lookahead = arrGen(() => new PIXI.Point(0, 0), size);
+    this.updateLookaheadSegments();
+  }
+
   destroy () {
     super.destroy();
 
@@ -215,7 +220,7 @@ export default class Orbital extends AbstractEntity {
         this.nearestCollision = Math.min(ttl, this.nearestCollision);
       }
 
-      if (intersections.length){
+      if (intersections.length) {
         break;
       }
     }

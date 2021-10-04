@@ -33,6 +33,8 @@ export default {
         title: this.fillTemplate(article.title || ''),
         image: this.fillTemplate(article.image || ''),
       });
+
+      if (this.articles.length > 6) this.articles.shift();
     },
     remove (article) {
       const index = this.articles.indexOf(article);

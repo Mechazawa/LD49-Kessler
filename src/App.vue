@@ -1,11 +1,16 @@
 <template>
   <div id="app">
     <NewsCM/>
-    <PauseCM v-if="paused"
-             @toggle-music="toggleMusic"
-             @restart="restart"
-             @dismiss="paused = false"/>
+    <PauseMenu v-if="paused && !director.gameOver"
+               @toggle-music="toggleMusic"
+               @restart="restart"
+               @dismiss="paused = false"/>
+    <GameOver v-if="director.gameOver"
+              :score="director.score"
+              :time="director.timeElapsed"
+              @restart="restart"/>
     <div id="game" ref="game"/>
+    <ScoreCounter :value="director.score"/>
   </div>
 </template>
 
@@ -30,13 +35,15 @@ import Satelite2 from './game/entities/Satellite2';
 import NewsCM from './components/NewsCM';
 import EscapeRing from './game/entities/EscapeRing';
 import Orbital from './game/entities/Orbital';
-import PauseCM from './components/PauseCM';
+import PauseMenu from './components/PauseMenu';
 import Director from './game/Director';
+import ScoreCounter from './components/ScoreCounter';
+import GameOver from './components/GameOver';
 
 export default {
   name: 'app',
   components: {
-    NewsCM, PauseCM,
+    NewsCM, PauseMenu, ScoreCounter, GameOver,
   },
   data () {
     return {
@@ -51,7 +58,7 @@ export default {
     });
 
     window.addEventListener('keydown', ({ key }) => {
-      if (key === 'Escape') {
+      if (key === 'Escape' && !this.director.gameOver) {
         this.paused = !this.paused;
       }
     }, false);
@@ -126,7 +133,7 @@ export default {
           .load(() => {
             const stats = new Stats();
 
-            this.$refs.game.appendChild(stats.dom);
+            // this.$refs.game.appendChild(stats.dom);
 
             game.ticker.add(delta => {
               stats.begin();
@@ -178,6 +185,7 @@ export default {
       window.director = this.director;
 
       this.paused = false;
+      game.paused = false;
     },
   },
 };

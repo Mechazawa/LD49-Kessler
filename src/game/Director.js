@@ -7,6 +7,7 @@ import Sputnik from './entities/Sputnik';
 import { randomPick } from '../utils';
 import texts from '../assets/text.json';
 import entityStore from './EntityStore';
+import Satellite from './entities/Satellite';
 
 export default class Director {
   timeElapsed = 0;
@@ -18,6 +19,8 @@ export default class Director {
   eventChance = 0.8;
 
   gameOver = false;
+
+  score = 0;
 
   timers = [
     [0, () => window.news.add({
@@ -65,9 +68,11 @@ export default class Director {
       if (Math.random() <= this.eventChance) {
         this.nextEvent();
       }
+
+      this.score += Math.round(Math.random() * 10);
     }
 
-    //
+    // timers
     for (const timer of this.timers) {
       if (timer[0] < 0) continue;
 
@@ -75,6 +80,12 @@ export default class Director {
         timer[0] = -1;
         timer[1].call(this);
       }
+    }
+
+    // game over
+    this.gameOver = entityStore.getEntitiesForType(Satellite).size === 0;
+    if (this.gameOver) {
+      game.paused = true;
     }
   }
 
@@ -108,8 +119,10 @@ export default class Director {
 
     const satellite = new Constructor(...randomPick(launchCoordinates), points);
 
-    entityStore.add(satellite)
-    satellite.moveToSafeCoordinates();
+    entityStore.add(satellite);
+    satellite.moveToSafeCoordinates(Math.max(160, Math.round(300 - this.timeElapsed / 15)));
+
+    this.score += Math.round(Math.random() * points * 10) + 1000;
 
     return satellite;
   }
