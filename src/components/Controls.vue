@@ -25,10 +25,10 @@
         <img src="images/controls-keyboard.svg" width="130">
       </div>
       <p>
-        Moves ship in specified direction. Some
-        ships have more fuel or are faster then
-        others. Fuel supply is indicated by the
-        blue bar.
+        Moves satellites in specified direction. Some
+        satellites have more fuel or are faster then
+        others. Fuel supply is indicated by the blue
+        bar.
       </p>
     </div>
   </div>
