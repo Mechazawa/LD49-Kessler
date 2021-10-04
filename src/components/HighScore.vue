@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import CloseButton from './CloseButton';
 import game from '../game';
 import SoundEffect from '../game/SoundEffect';
 

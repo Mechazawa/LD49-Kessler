@@ -33,7 +33,7 @@ export default class Director {
     [0, () => this.launch()],
     [0, () => this.launch()],
     ...texts.population.map((amount, i) => [i * 120, () => window.news.add({
-      title: "Population Growth",
+      title: 'Population Growth',
       value: `The population of Starburst IX grew to ${amount}`,
     })]),
     [240, () => window.news.add({

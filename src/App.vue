@@ -75,7 +75,9 @@ Controls,
     };
   },
   mounted () {
-    if (!localStorage.getItem('highScores')) {
+    if (localStorage.getItem('highScores')) {
+      this.scores = JSON.parse(localStorage.highScores);
+    } else {
       localStorage.setItem('highScores', JSON.stringify(this.scores = [
         {
           name: randomPick(texts.alien),
@@ -83,8 +85,6 @@ Controls,
           score: 3619,
         },
       ]));
-    } else {
-      this.scores = JSON.parse(localStorage.highScores);
     }
 
     window.addEventListener('blur', () => {
