@@ -42,7 +42,7 @@ export default class AbstractEntity extends EventEmitter {
    * @param delta {number}
    */
   update (delta) {
-    if (!Number.isNaN(this.sprite.vx + this.sprite.vy)) {
+    if (!Number.isNaN(this.sprite?.vx + this.sprite?.vy)) {
       this.sprite.x += this.sprite.vx;
       this.sprite.y += this.sprite.vy;
     }
@@ -55,9 +55,8 @@ export default class AbstractEntity extends EventEmitter {
   destroy () {
     this.removeAllListeners();
 
-    game.stage.removeChild(this.sprite);
-
     if (this.sprite._texture) {
+      game.stage.removeChild(this.sprite);
       this.sprite.destroy();
     }
 

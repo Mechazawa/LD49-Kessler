@@ -8,6 +8,7 @@ import CollisionWarning from './CollisionWarning';
 import EscapeRing from './EscapeRing';
 import launchCoordinates from '../../assets/launch-coordinates.json';
 import SoundEffect from '../SoundEffect';
+import { FuelGauge } from '../FuelGauge';
 
 export default class Satellite extends Orbital {
   /**
@@ -51,6 +52,8 @@ export default class Satellite extends Orbital {
     this.sprite.anchor.set(0.6, 0.6);
 
     SoundEffect.deploy().play();
+
+    entityStore.add(new FuelGauge(this));
   }
 
   tick (delta) {
