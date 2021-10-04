@@ -32,9 +32,9 @@ export default class Director {
     [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15)).moveToSafeCoordinates()],
     [0, () => this.launch()],
     [0, () => this.launch()],
-    ...texts.population.map((amount, i) => [i * 60, () => window.news.add({
+    ...texts.population.map((amount, i) => [i * 120, () => window.news.add({
       title: "Population Growth",
-      value: `Starburst IX just got their ${amount}th Margobian.`,
+      value: `The Starburst IX grew to [population]`,
     })]),
     [240, () => window.news.add({
       title: 'Enviromental Report',
@@ -83,9 +83,9 @@ export default class Director {
 
     if (pick < 0.1 && this.getSatCount() > 3) {
       this.news();
-    } else if (pick < 0.4) {
+    } else if (pick < 0.3) {
       this.launchWithNews();
-    } else if (pick < 0.5) {
+    } else if (pick < 0.4) {
       this.launch();
       this.launch();
     } else if (pick < 0.9) {
