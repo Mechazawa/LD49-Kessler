@@ -62,4 +62,10 @@ export default class Trail {
       );
     }
   }
+
+  update(delta) {
+    super.update(delta);
+
+    this.rope.alpha = this.parent.sprite.alpha;
+  }
 }

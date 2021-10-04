@@ -11,8 +11,9 @@
         of destruction. You have been assigned as the
         sole protector of these satellites. Can you
         prevent chaos and make the Margobians prosper?
-        Get points for protecting satellites as long as
-        possible.
+        Use the controls at your disposal to guide the
+        satellites out of harms way. Get points for
+        protecting satellites as long as possible.
       </p>
       <h2 class="fancyborder" @click="$emit('dismiss')">Ok</h2>
     </div>
@@ -20,12 +21,13 @@
       <div style="width: 100%; height:45%;padding-top:20px;padding-bottom:10px">
         <img src="images/controls-mouse.svg" width="80">
       </div>
-      Select
+      Selects satellites to control them. This will also
+      show their heading and collision points.
       <div style="width: 100%; height:45%;padding-top:20px;">
         <img src="images/controls-keyboard.svg" width="130">
       </div>
       <p>
-        Moves satellites in specified direction. Some
+        Move satellites in specified direction. Some
         satellites have more fuel or are faster then
         others. Fuel supply is indicated by the blue
         bar.

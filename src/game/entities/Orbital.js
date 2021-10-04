@@ -103,7 +103,9 @@ export default class Orbital extends AbstractEntity {
       }
     }
 
-    this.updateCollision();
+    if (!this.skipCollision) {
+      this.updateCollision();
+    }
 
     this.lookaheadPreview?.tick(delta);
   }
@@ -235,7 +237,7 @@ export default class Orbital extends AbstractEntity {
 
   updateCollision () {
     const collisions = Array.from(entityStore.getEntitiesForType(Orbital))
-      .filter(e => !e.dead && this !== e && Boolean(this.testCollision(e)));
+      .filter(e => !e.dead && !e.skipCollision && this !== e && Boolean(this.testCollision(e)));
 
     if (collisions.length) {
       this.explode();

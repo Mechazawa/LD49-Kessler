@@ -55,8 +55,10 @@ export class FuelGauge extends AbstractEntity {
     if (!this.parent.dead) {
       this.sprite.x = this.parent.sprite.x;
       this.sprite.y = this.parent.sprite.y + this.offset;
+      this.sprite.alpha = this.parent.sprite.alpha;
       this.sprite2.x = this.parent.sprite.x;
       this.sprite2.y = this.parent.sprite.y + this.offset;
+      this.sprite2.alpha = this.parent.sprite.alpha;
 
       // lazy
       this.sprite2.scale.x = Math.max(0, (this.parent.fuel / 200) * this.sprite2.scale.y);

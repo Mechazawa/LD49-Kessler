@@ -31,6 +31,8 @@ export default class Satellite extends Orbital {
 
   trail;
 
+  invincible;
+
   controls = {
     up: new Key('w'),
     down: new Key('s'),
@@ -38,13 +40,14 @@ export default class Satellite extends Orbital {
     right: new Key('d'),
   };
 
-  constructor (x, y, vx, vy, points = 10) {
+  constructor (x, y, vx, vy, points = 10, invincible = 240) {
     super(x, y, vx, vy);
 
     const trailTexture = game.loader.resources['images/trail.png'].texture;
 
     this.trail = new Trail(this, trailTexture, 20, 100);
     this.points = points;
+    this.invincible = invincible;
 
     this.constructor.debris.sort((a, b) => b.price - a.price);
 
@@ -58,9 +61,15 @@ export default class Satellite extends Orbital {
     this.registerInteractivity();
   }
 
+  get skipCollision () {
+    return this.invincible > 0;
+  }
+
   tick (delta) {
     this.trail.tick(delta);
     super.tick(delta);
+
+    this.invincible -= delta;
 
     if (this.selected) {
       this._handleInput(delta);
@@ -70,7 +79,13 @@ export default class Satellite extends Orbital {
   update (delta) {
     super.update(delta);
 
-    this.sprite.alpha = this.fuel < 0 ? 0.8 : 1;
+    if (this.invincible > 0) {
+      this.sprite.alpha = 0.6;
+    } else if (this.fuel <= 0) {
+      this.sprite.alpha = 0.8;
+    } else {
+      this.sprite.alpha = 1;
+    }
   }
 
   _handleInput (delta) {
