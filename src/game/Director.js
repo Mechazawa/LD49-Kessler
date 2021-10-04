@@ -4,7 +4,7 @@ import Satellite1 from './entities/Satellite1';
 import Satellite2 from './entities/Satellite2';
 import Satellite3 from './entities/Satellite3';
 import Sputnik from './entities/Sputnik';
-import { randomPick } from '../utils';
+import { randInt, randomPick } from '../utils';
 import texts from '../assets/text.json';
 import entityStore from './EntityStore';
 import Satellite from './entities/Satellite';
@@ -70,7 +70,7 @@ export default class Director {
         this.nextEvent();
       }
 
-      this.score += Math.round(Math.random() * 10);
+      this.score += Math.round(randInt(0, entityStore.getEntitiesForType(Satellite).size * 100) + randInt(10, 20));
     }
 
     // timers

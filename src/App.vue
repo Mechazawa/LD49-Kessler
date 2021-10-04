@@ -181,6 +181,9 @@ export default {
         entity.destroy();
       }
 
+      this.tempMute('explosion');
+      this.tempMute('explosion2');
+
       this.director = new Director();
       window.director = this.director;
 
@@ -188,6 +191,16 @@ export default {
       game.paused = false;
 
       window.news.clear();
+    },
+    tempMute (name, time = 500) {
+      const old = SoundEffect[name]().volum;
+
+      SoundEffect[name]().volume = 0;
+
+      setTimeout(() => {
+        SoundEffect[name]().pause();
+        SoundEffect[name]().volume = old;
+      }, time);
     },
   },
 };
