@@ -64,11 +64,11 @@ export default class Director {
     if (this.timeElapsed - this.lastEvent > this.interval) {
       this.lastEvent = this.timeElapsed;
 
-      if (Math.random() <= this.eventChance) {
+      if (Math.random() <= this.eventChance || this.getSatCount() === 1) {
         this.nextEvent();
       }
 
-      this.score += Math.round(randInt(0, entityStore.getEntitiesForType(Satellite).size * 100)) + entityStore.getEntitiesForType(Satellite).size * 30;
+      this.score += Math.round(randInt(0, this.getSatCount() * 100)) + entityStore.getEntitiesForType(Satellite).size * 30;
     }
 
     // timers
@@ -82,7 +82,7 @@ export default class Director {
     }
 
     // game over
-    this.gameOver = entityStore.getEntitiesForType(Satellite).size === 0;
+    this.gameOver = this.getSatCount() === 0;
 
     if (this.gameOver) {
       game.paused = true;
@@ -92,7 +92,7 @@ export default class Director {
   nextEvent () {
     const pick = Math.random();
 
-    if (pick < 0.1) {
+    if (pick < 0.1 && this.getSatCount() > 2) {
       this.news();
     } else if (pick < 0.4) {
       this.launchWithNews();
@@ -135,6 +135,10 @@ export default class Director {
     // todo related new
     this.launch();
     this.news();
+  }
+
+  getSatCount () {
+    return entityStore.getEntitiesForType(Satellite).size;
   }
 }
 
