@@ -176,6 +176,8 @@ export default {
 
       this.director = new Director();
       window.director = this.director;
+
+      this.paused = false;
     },
   },
 };
