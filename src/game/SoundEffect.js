@@ -51,6 +51,4 @@ sounds.whenLoaded = () => {
   });
 };
 
-window.S = SoundEffect;
-
 export default SoundEffect;

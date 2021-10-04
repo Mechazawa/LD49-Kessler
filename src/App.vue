@@ -62,7 +62,8 @@ export default {
 
     window.entityStore = entityStore;
     window.game = game;
-    // window.sound = sound;
+    window.director = this.director;
+    window.SoundEffect = SoundEffect;
 
     game.loader.onProgress.add((loader, resource) => {
       // Display the file `url` currently being loaded
@@ -174,6 +175,7 @@ export default {
       }
 
       this.director = new Director();
+      window.director = this.director;
     },
   },
 };
