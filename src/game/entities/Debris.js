@@ -21,7 +21,7 @@ export default class Debris extends Orbital {
 
     setTimeout(() => {
       this.invincible = false;
-    }, 1000);
+    }, 1500);
   }
 
   tick (delta) {
@@ -47,7 +47,7 @@ export default class Debris extends Orbital {
   }
 
   explode () {
-    if (this.invincible) {
+    if (this.invincible && !this.isCrashedIntoPlanet()) {
       return;
     }
 

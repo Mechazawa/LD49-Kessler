@@ -46,6 +46,9 @@ export default {
     fillTemplate (text) {
       return text.replace(/\[(\w+)]/g, (_, key) => randomPick(texts[key]));
     },
+    clear () {
+      this.articles = [];
+    },
   },
 };
 </script>

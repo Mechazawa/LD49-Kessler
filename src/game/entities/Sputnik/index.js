@@ -13,9 +13,9 @@ export default class Sputnik extends Satellite {
     DebrisSmall,
   ];
 
-  speed = 0.00;
+  speed = 0.02;
 
-  fuel = Infinity;
+  fuel = 100;
 
   collisionRadius = 18;
 }

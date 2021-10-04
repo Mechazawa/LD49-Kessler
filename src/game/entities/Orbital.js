@@ -240,12 +240,14 @@ export default class Orbital extends AbstractEntity {
       collisions.forEach(e => e.explode());
     }
 
-    const crashed = Array.from(entityStore.getEntitiesForType(Planet))
-      .some(e => !e.dead && Boolean(this.testCollision(e)));
-
-    if (crashed) {
+    if (this.isCrashedIntoPlanet()) {
       this.explode();
     }
+  }
+
+  isCrashedIntoPlanet() {
+    return Array.from(entityStore.getEntitiesForType(Planet))
+      .some(e => !e.dead && Boolean(this.testCollision(e)));
   }
 
   testCollision (target) {

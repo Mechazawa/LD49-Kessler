@@ -186,6 +186,8 @@ export default {
 
       this.paused = false;
       game.paused = false;
+
+      window.news.clear();
     },
   },
 };
