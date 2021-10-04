@@ -1,20 +1,30 @@
 <template>
   <div class="fancyborder fixed">
     <!--    <CloseButton @click="$emit('dismiss')"/>-->
-    <h1>High Scores</h1>
-    <table>
-      <tr>
-        <th>name</th>
-        <th>score</th>
-        <th>time</th>
-      </tr>
-      <tr v-for="(score, index) of value" :key="index">
-        <td v-text="score.name"/>
-        <td v-text="score.score"/>
-        <td>{{ Math.floor(score.time / 60) }}:{{ `0${Math.floor(score.time % 60)}`.substr(-2) }}</td>
-      </tr>
-    </table>
-    <h2 class="fancyborder" @click="$emit('dismiss')">Close</h2>
+    <div style="width: 60%">
+      <img src="images/logo-big.svg" width="80%" style="float:left;padding-right:100%;"/>
+      <p>
+        The Margobians of Starburst IX need you! All
+        the planet's states are racing to get satellites
+        in orbit. But with so much traffic in space any
+        collision can tip the balance and cause a cascade
+        of destruction. You have been assigned as the
+        sole protector of these satellites. Can you
+        prevent chaos and make the Margobians prosper?
+      </p>
+      <h2 class="fancyborder" @click="$emit('dismiss')">Done</h2>
+    </div>
+    <div style="width: 40%">
+      <div style="width: 100%; height:45%;padding-top:20px;padding-bottom:10px">
+        <img src="images/controls-mouse.svg" width="80">
+      </div>
+      Select
+      <div style="width: 100%; height:45%;padding-top:20px;padding-bottom:10px">
+        <img src="images/controls-keyboard.svg" width="130">
+      </div>
+      Moves ship in specified direction. Some
+      ships have more fuel or are faster then others.
+    </div>
   </div>
 </template>
 
@@ -24,13 +34,7 @@ import game from '../game';
 import SoundEffect from '../game/SoundEffect';
 
 export default {
-  name: 'high-score',
-  props: {
-    value: {
-      required: true,
-      validator: x => Array.isArray(x),
-    },
-  },
+  name: 'controls',
   mounted () {
     game.paused = true;
 
@@ -45,8 +49,12 @@ export default {
 </script>
 
 <style scoped>
+div {
+  display: inline-block;
+}
+
 .fixed {
-  width: 300px;
+  width: 800px;
 
   overflow: hidden;
   position: absolute;
@@ -55,7 +63,7 @@ export default {
   max-height: 80vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
-  left: calc(50vw - 150px);
+  left: calc(50vw - 400px);
 
   background: rgba(50, 50, 50, 0.95);
 }
@@ -69,6 +77,11 @@ h2, input {
   cursor: pointer;
 
   border-radius: 20px;
+}
+
+p {
+  text-align: justify;
+  padding:0 2em;
 }
 
 h2:hover {

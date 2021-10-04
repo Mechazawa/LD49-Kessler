@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <NewsCM/>
-    <PauseMenu v-if="paused && !director.gameOver && !highScore"
+    <PauseMenu v-if="paused && !director.gameOver && !highScore && !controls"
                @toggle-music="toggleMusic"
                @restart="restart"
                @high-score="highScore = true"
+               @controls="controls = true"
                @dismiss="paused = false"/>
     <GameOver v-if="director.gameOver"
               :score="director.score"
@@ -14,6 +15,8 @@
     <HighScore v-if="highScore"
                :value="scores"
                @dismiss="highScore = false"/>
+    <Controls v-if="controls"
+              @dismiss="controls = false"/>
     <div id="game" ref="game"/>
     <ScoreCounter :value="director.score"/>
   </div>
@@ -47,17 +50,20 @@ import GameOver from './components/GameOver';
 import texts from './assets/text.json';
 import HighScore from './components/HighScore';
 import { FuelGauge } from './game/FuelGauge';
+import Controls from './components/Controls';
 
 export default {
   name: 'app',
   components: {
-    NewsCM, PauseMenu, ScoreCounter, GameOver, HighScore,
+    NewsCM, PauseMenu, ScoreCounter,
+    GameOver, HighScore, Controls,
   },
   data () {
     return {
       paused: false,
       music: false,
       highScore: false,
+      controls: false,
       scores: [],
       director: new Director(),
     };
