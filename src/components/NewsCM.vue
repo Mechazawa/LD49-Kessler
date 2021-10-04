@@ -12,6 +12,7 @@
 import NewsArticle from './NewsArticle';
 import texts from '../assets/text.json';
 import { randomPick } from '../utils';
+import SoundEffect from '../game/SoundEffect';
 
 export default {
   name: 'news-c-m',
@@ -41,6 +42,8 @@ export default {
 
       if (index >= 0) {
         this.articles.splice(index, 1);
+
+        SoundEffect.newsDismiss().play();
       }
     },
     fillTemplate (text) {

@@ -32,6 +32,9 @@ const SoundEffect = {
   warning () {
     return getSound('warning');
   },
+  newsDismiss () {
+    return getSound('newsDismiss');
+  }
 };
 
 SoundEffect.ambient.path = 'sounds/ambient.mp3';
@@ -44,7 +47,7 @@ sounds.whenLoaded = () => {
   getSound('ambient').volume = 0.1;
   getSound('ambient').loop = true;
 
-  getSound('warning').volume = 0.5;
+  getSound('warning').volume = 0.4;
 
   getSound('pause').volume = 2.5;
 
