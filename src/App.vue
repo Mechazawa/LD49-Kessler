@@ -8,6 +8,7 @@
     <GameOver v-if="director.gameOver"
               :score="director.score"
               :time="director.timeElapsed"
+              @submit="submitScore"
               @restart="restart"/>
     <div id="game" ref="game"/>
     <ScoreCounter :value="director.score"/>
@@ -19,7 +20,7 @@ import game from './game';
 import Cat from './game/entities/Cat';
 import Planet from './game/entities/Planet';
 import entityStore from './game/EntityStore';
-import { unique } from './utils';
+import { randInt, randomPick, unique } from './utils';
 import CollisionWarning from './game/entities/CollisionWarning';
 import Stats from 'stats.js';
 import Highlight from './game/entities/Highlight';
@@ -39,6 +40,7 @@ import PauseMenu from './components/PauseMenu';
 import Director from './game/Director';
 import ScoreCounter from './components/ScoreCounter';
 import GameOver from './components/GameOver';
+import texts from './assets/text.json';
 
 export default {
   name: 'app',
@@ -53,6 +55,16 @@ export default {
     };
   },
   mounted () {
+    if (!localStorage.getItem('highScores')) {
+      localStorage.setItem('highScores', [
+        {
+          name: randomPick(texts.alien),
+          time: Math.round(randInt(20, 60)),
+          score: 3619,
+        },
+      ]);
+    }
+
     window.addEventListener('blur', () => {
       this.paused = true;
     });
@@ -201,6 +213,22 @@ export default {
         SoundEffect[name]().pause();
         SoundEffect[name]().volume = old;
       }, time);
+    },
+    submitScore (name) {
+      const scores = localStorage.getItem('highScores');
+
+      scores.push({
+        name,
+        time: this.director.timeElapsed,
+        score: this.director.score,
+      });
+
+      scores.sort((a, b) => b.score - a.score);
+
+      localStorage.setItem('highScores', scores);
+
+      // todo show high score screen
+      this.restart();
     },
   },
 };
