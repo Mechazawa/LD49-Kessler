@@ -1,11 +1,12 @@
 import Orbital from './Orbital';
-import { circleIntersect, first, randInt } from '../../utils';
+import { circleIntersect, first, randInt, randomPick } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
 import entityStore from '../EntityStore';
 import Key from '../input/Key';
 import CollisionWarning from './CollisionWarning';
 import EscapeRing from './EscapeRing';
+import launchCoordinates from '../../assets/launch-coordinates.json';
 
 export default class Satellite extends Orbital {
   /**
@@ -160,9 +161,11 @@ export default class Satellite extends Orbital {
         x: ring.sprite.x, y: ring.sprite.y, r: ring.radius,
       });
 
-      const ttl = this.lookaheadIndex - i;
+      const ttl = i - this.lookaheadIndex;
 
       if (escaped) {
+        this.nearestCollision = Math.min(ttl, this.nearestCollision);
+
         entityStore.add(new CollisionWarning(
           [this, ring],
           this.lookahead[i].x,
@@ -173,5 +176,22 @@ export default class Satellite extends Orbital {
         break;
       }
     }
+  }
+
+  moveToSafeCoordinates () {
+    const safeDistance = 180;
+
+    for (let tries = 50; tries > 0 && this.nearestCollision < safeDistance; tries--) {
+      const [x, y, vx, vy] = randomPick(launchCoordinates);
+
+      this.sprite.x = x;
+      this.sprite.y = y;
+      this.sprite.vx = vx;
+      this.sprite.vy = vy;
+
+      this.updateCollisionLookahead();
+    }
+
+    console.log('nearestCollision', this.nearestCollision);
   }
 }

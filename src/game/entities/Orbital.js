@@ -22,6 +22,7 @@ export default class Orbital extends AbstractEntity {
   lookaheadUpdateThreshold;
   lookaheadPreview;
 
+  nearestCollision = Infinity;
   selected = false;
   highlight;
 
@@ -43,6 +44,7 @@ export default class Orbital extends AbstractEntity {
 
     this.lookaheadUpdateThreshold = Math.floor(this.lookahead.length * 0.1);
     this.updateLookaheadSegments();
+    this.updateCollisionLookahead();
 
     // game.stage.addChild(new PIXI.SimpleRope(trailTexture, this.lookahead));
   }
@@ -172,6 +174,7 @@ export default class Orbital extends AbstractEntity {
 
     tree.remove(this.lookaheadBBox);
     this.lookaheadBBox = { ...lineBBox(this.lookahead), ref: this };
+    this.nearestCollision = Infinity;
 
     CollisionWarning.findForOrbital(this).filter(x => x.satellites[0] === this).forEach(x => x.destroy());
 
@@ -186,6 +189,8 @@ export default class Orbital extends AbstractEntity {
         intersection.ap.y,
         intersection.ttl,
       ));
+
+      this.nearestCollision = Math.min(intersection.ttl, this.nearestCollision);
     }
 
     const planets = Array.from(entityStore.getEntitiesForType(Planet));
@@ -197,7 +202,7 @@ export default class Orbital extends AbstractEntity {
         x: planet.sprite.x, y: planet.sprite.y, r: planet.collisionRadius,
       }));
 
-      const ttl = this.lookaheadIndex - i;
+      const ttl = i - this.lookaheadIndex;
 
       for (const planet of intersections) {
         entityStore.add(new CollisionWarning(
@@ -206,6 +211,12 @@ export default class Orbital extends AbstractEntity {
           this.lookahead[i].y,
           ttl,
         ));
+
+        this.nearestCollision = Math.min(ttl, this.nearestCollision);
+      }
+
+      if (intersections.length){
+        break;
       }
     }
 

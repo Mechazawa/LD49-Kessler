@@ -24,7 +24,7 @@ export default class Director {
       title: 'Space Race Begins',
       value: 'Starburst IX launches their first satellite "[satellite]"',
     })],
-    [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15))],
+    [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15)).moveToSafeCoordinates()],
     [20, () => window.news.add({
       title: 'Population Growth',
       value: 'Starburst IX just got their 10.000th Margobian.',
@@ -106,7 +106,12 @@ export default class Director {
       Sputnik,
     ]);
 
-    return entityStore.add(new Constructor(...randomPick(launchCoordinates), points));
+    const satellite = new Constructor(...randomPick(launchCoordinates), points);
+
+    entityStore.add(satellite)
+    satellite.moveToSafeCoordinates();
+
+    return satellite;
   }
 
   launchWithNews () {
