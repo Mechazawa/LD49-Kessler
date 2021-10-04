@@ -11,6 +11,8 @@
         of destruction. You have been assigned as the
         sole protector of these satellites. Can you
         prevent chaos and make the Margobians prosper?
+        Get points for protecting satellites as long as
+        possible.
       </p>
       <h2 class="fancyborder" @click="$emit('dismiss')">Done</h2>
     </div>
