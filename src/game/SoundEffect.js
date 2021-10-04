@@ -37,7 +37,7 @@ const SoundEffect = {
   },
   newsFeed () {
     return getSound('newsFeed');
-  }
+  },
 };
 
 SoundEffect.ambient.path = 'sounds/ambient.mp3';

@@ -65,7 +65,7 @@ export default class Director {
     if (this.timeElapsed - this.lastEvent > this.interval) {
       this.lastEvent = this.timeElapsed;
 
-      if (Math.random() <= this.eventChance || this.getSatCount() === 1) {
+      if (Math.random() <= this.eventChance || this.getSatCount() <= 2) {
         this.nextEvent();
       }
 
@@ -93,7 +93,7 @@ export default class Director {
   nextEvent () {
     const pick = Math.random();
 
-    if (pick < 0.1 && this.getSatCount() > 2) {
+    if (pick < 0.1 && this.getSatCount() > 3) {
       this.news();
     } else if (pick < 0.4) {
       this.launchWithNews();
@@ -149,7 +149,7 @@ export default class Director {
       [995, 445, 0.9, -0.6],
       [995, 245, 0.3, 0.6],
       [10, 145, -0.3, -0.6],
-      [10, 745, -0.9, 1.3]
+      [10, 745, -0.9, 1.3],
     ];
 
     entityStore.add(new CometMoon(...randomPick(spawnPoints)));
