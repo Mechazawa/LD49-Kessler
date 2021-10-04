@@ -29,8 +29,8 @@ export default class Director {
       image: 'images/photo-positive.svg',
       value: 'Starburst IX launches their first satellite "[satellite]"',
     })],
-    [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15, 0)).moveToSafeCoordinates()],
-    [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15, 0)).moveToSafeCoordinates()],
+    [0, () => entityStore.add(new Satellite3(...randomPick(launchCoordinates), 15, 0)).moveToSafeCoordinates()],
+    [0, () => entityStore.add(new Sputnik(...randomPick(launchCoordinates), 15, 0)).moveToSafeCoordinates()],
     ...texts.population.map((amount, i) => [i * 120, () => window.news.add({
       title: 'Population Growth',
       value: `The population of Starburst IX grew to ${amount}`,

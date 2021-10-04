@@ -4,7 +4,7 @@ import DebrisBig from './DebrisBig';
 import DebrisSmall from './DebrisSmall';
 import DebrisTiny from './DebrisTiny';
 import textures
-  from 'svg-to-png-loader?width=66&height=25&name=images/[name]-[width]x[height].png!@/assets/satellite-3.svg';
+  from 'svg-to-png-loader?width=36&height=38&name=images/[name]-[width]x[height].png!@/assets/satellite-3.svg';
 
 export default class Satellite3 extends Satellite {
   static texture = first(textures);
