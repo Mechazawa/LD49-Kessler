@@ -138,12 +138,12 @@ export default class Orbital extends AbstractEntity {
     }
 
     this.selected = true;
-    this.highlight = new Highlight(this);
 
     entityStore.add(this.highlight);
 
     this.lookaheadUpdateThreshold = 1;
     this.lookaheadPreview = new TrailPrediction(this);
+    this.highlight = new Highlight(this);
 
     SoundEffect.select().play();
   }
