@@ -55,8 +55,12 @@ import Controls from './components/Controls';
 export default {
   name: 'app',
   components: {
-    NewsCM, PauseMenu, ScoreCounter,
-    GameOver, HighScore, Controls,
+    NewsCM,
+PauseMenu,
+ScoreCounter,
+    GameOver,
+HighScore,
+Controls,
   },
   data () {
     return {
