@@ -1,5 +1,5 @@
 import Orbital from './Orbital';
-import { circleIntersect, first, randInt, randomPick } from '../../utils';
+import { circleIntersect, debug, first, randInt, randomPick } from '../../utils';
 import Trail from '../Trail';
 import game from '../index';
 import entityStore from '../EntityStore';
@@ -228,7 +228,7 @@ export default class Satellite extends Orbital {
 
     this.collisionRadius = oldRad;
 
-    console.log('tries', attempts.length);
+    debug('tries', attempts.length);
 
     if (this.nearestCollision < safeDistance) {
       const [expected, [x, y, vx, vy]] = attempts.sort((a, b) => b[0] - a[0])[0];
@@ -238,16 +238,16 @@ export default class Satellite extends Orbital {
       this.sprite.vx = vx;
       this.sprite.vy = vy;
 
-      console.log('attempts', attempts);
+      debug('attempts', attempts);
 
-      console.log('nearestCollision[old]', this.nearestCollision, 'expecting', expected);
+      debug('nearestCollision[old]', this.nearestCollision, 'expecting', expected);
 
       this.updateLookaheadSegments();
       this.updateCollisionLookahead();
     }
 
-    console.log('nearestCollision', this.nearestCollision);
-    console.log('collisionRadius', oldRad, '=>', this.collisionRadius);
+    debug('nearestCollision', this.nearestCollision);
+    debug('collisionRadius', oldRad, '=>', this.collisionRadius);
 
     this.trail.reset();
   }

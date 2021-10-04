@@ -95,3 +95,13 @@ export function blockObserver (obj) {
 
   return obj;
 }
+
+export function debug (...args) {
+  if (env.hasOwnProperty('debug') && args.length) {
+    console.log(...args);
+  }
+
+  return env.hasOwnProperty('debug');
+}
+
+debug('env', env);

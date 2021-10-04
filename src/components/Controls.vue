@@ -45,7 +45,7 @@ export default {
   mounted () {
     game.paused = true;
 
-    SoundEffect.pause().play();
+    SoundEffect.pause()?.play();
   },
   beforeDestroy () {
     game.paused = false;

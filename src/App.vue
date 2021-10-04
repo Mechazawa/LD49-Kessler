@@ -30,7 +30,7 @@ import game from './game';
 import Cat from './game/entities/Cat';
 import Planet from './game/entities/Planet';
 import entityStore from './game/EntityStore';
-import { env, randInt, randomPick, unique } from './utils';
+import { debug, randInt, randomPick, unique } from './utils';
 import CollisionWarning from './game/entities/CollisionWarning';
 import Stats from 'stats.js';
 import Highlight from './game/entities/Highlight';
@@ -113,10 +113,10 @@ export default {
 
     game.loader.onProgress.add((loader, resource) => {
       // Display the file `url` currently being loaded
-      console.log(`loading: ${resource.url}`);
+      debug(`loading: ${resource.url}`);
 
       // Display the percentage of files currently loaded
-      console.log(`progress: ${loader.progress}%`);
+      debug(`progress: ${loader.progress}%`);
 
       this.loadingProgress = loader.progress;
 
@@ -128,7 +128,7 @@ export default {
       // you don't accidentally use the same name more than
       // once. Using the file path name, is simpler and
       // less error prone.
-      // console.log("loading: " + resource.name);
+      // debug("loading: " + resource.name);
     });
 
     this.boot();
@@ -184,7 +184,7 @@ export default {
 
             const stats = new Stats();
 
-            if ('debug' in env) {
+            if (debug()) {
               this.$refs.game.appendChild(stats.dom);
             }
 
