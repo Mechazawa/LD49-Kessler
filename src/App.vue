@@ -58,11 +58,11 @@ export default {
   name: 'app',
   components: {
     NewsCM,
-PauseMenu,
-ScoreCounter,
+    PauseMenu,
+    ScoreCounter,
     GameOver,
-HighScore,
-Controls,
+    HighScore,
+    Controls,
   },
   data () {
     return {
