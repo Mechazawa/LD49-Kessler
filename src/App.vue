@@ -276,7 +276,7 @@ body {
 }
 
 .fancyborder {
-  border-radius: 15px;
+  border-radius: 20px;
   border: 8px solid #550593;
 
   position: relative;
@@ -296,7 +296,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 
-  border-radius: 15px;
+  border-radius: 20px;
   border: 2px solid #8100cc;
 }
 </style>
