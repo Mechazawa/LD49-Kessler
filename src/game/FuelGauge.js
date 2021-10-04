@@ -45,12 +45,14 @@ export class FuelGauge extends AbstractEntity {
 
     super.tick(delta);
 
-    this.background.x = this.parent.sprite.x;
-    this.background.y = this.parent.sprite.y + this.offset;
-    this.indicator.x = this.parent.sprite.x;
-    this.indicator.y = this.parent.sprite.y + this.offset;
+    if (!this.parent.dead) {
+      this.background.x = this.parent.sprite.x;
+      this.background.y = this.parent.sprite.y + this.offset;
+      this.indicator.x = this.parent.sprite.x;
+      this.indicator.y = this.parent.sprite.y + this.offset;
 
-    // lazy
-    this.indicator.scale.x = Math.min(0, this.parent.fuel / 200);
+      // lazy
+      this.indicator.scale.x = Math.min(0, this.parent.fuel / 200);
+    }
   }
 }
