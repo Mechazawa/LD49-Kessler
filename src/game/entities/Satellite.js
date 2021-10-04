@@ -200,8 +200,10 @@ export default class Satellite extends Orbital {
       this.updateCollisionLookahead();
     }
 
+    console.log('nearestCollision', this.nearestCollision);
+    console.log('collisionRadius', oldRad, '=>', this.collisionRadius);
+
     this.collisionRadius = oldRad;
 
-    console.log('nearestCollision', this.nearestCollision);
   }
 }
