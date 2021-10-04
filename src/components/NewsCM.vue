@@ -67,5 +67,7 @@ export default {
 }
 h1 {
   width: 270px;
+  background: rgba(50,50,50,0.95);
+  margin-bottom: 10px;
 }
 </style>
