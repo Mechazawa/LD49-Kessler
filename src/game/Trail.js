@@ -32,7 +32,7 @@ export default class Trail {
 
   reset () {
     for (let i = 0; i < this.points.length && !this.parent.dead; i++) {
-      this.points[i].set(this.parent.sprite.x, this.parent.sprite.y)
+      this.points[i].set(this.parent.sprite.x, this.parent.sprite.y);
     }
 
     this.history.x = arrGen(this.parent.sprite.x, this.history.x.length);
