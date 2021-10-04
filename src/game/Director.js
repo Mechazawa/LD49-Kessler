@@ -13,16 +13,16 @@ export default class Director {
 
   lastEvent = 0;
 
-  interval = 30;
+  interval = 20;
 
-  eventChance = 0.65;
+  eventChance = 0.8;
 
   timers = [
     [0, () => window.news.add({
       title: 'Space Race Begins',
       value: 'Starburst IX launches their first satellite [satellite]',
     })],
-    [0, () => this.launch()],
+    [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15))],
     [20, () => window.news.add({
       title: 'Population Growth',
       value: 'Starburst IX just got their 10.000th Margobian.',
@@ -59,7 +59,7 @@ export default class Director {
     if (this.timeElapsed - this.lastEvent > this.interval) {
       this.lastEvent = this.timeElapsed;
 
-      if (Math.random() >= this.eventChance) {
+      if (Math.random() <= this.eventChance) {
         this.nextEvent();
       }
     }
