@@ -1,24 +1,27 @@
 <template>
   <div id="app">
-    <NewsCM/>
-    <PauseMenu v-if="paused && !director.gameOver && !highScore && !controls"
-               @toggle-music="toggleMusic"
-               @restart="restart"
-               @high-score="highScore = true"
-               @controls="controls = true"
-               @dismiss="paused = false"/>
-    <GameOver v-if="director.gameOver"
-              :score="director.score"
-              :time="director.timeElapsed"
-              @submit="submitScore"
-              @restart="restart"/>
-    <HighScore v-if="highScore"
-               :value="scores"
-               @dismiss="highScore = false"/>
-    <Controls v-if="controls"
-              @dismiss="controls = false"/>
-    <div id="game" ref="game"/>
-    <ScoreCounter :value="director.score"/>
+    <h1 v-if="loading">Loading {{ loadingProgress.toFixed(2) }}%</h1>
+    <div v-show="!loading">
+      <NewsCM/>
+      <PauseMenu v-if="paused && !director.gameOver && !highScore && !controls"
+                 @toggle-music="toggleMusic"
+                 @restart="restart"
+                 @high-score="highScore = true"
+                 @controls="controls = true"
+                 @dismiss="paused = false"/>
+      <GameOver v-if="director.gameOver"
+                :score="director.score"
+                :time="director.timeElapsed"
+                @submit="submitScore"
+                @restart="restart"/>
+      <HighScore v-if="highScore"
+                 :value="scores"
+                 @dismiss="highScore = false"/>
+      <Controls v-if="controls"
+                @dismiss="controls = false"/>
+      <div id="game" ref="game"/>
+      <ScoreCounter :value="director.score"/>
+    </div>
   </div>
 </template>
 
@@ -66,6 +69,8 @@ export default {
   },
   data () {
     return {
+      loading: true,
+      loadingProgress: 0,
       paused: false,
       music: false,
       highScore: false,
@@ -112,6 +117,8 @@ export default {
 
       // Display the percentage of files currently loaded
       console.log(`progress: ${loader.progress}%`);
+
+      this.loadingProgress = loader.progress;
 
       // If you gave your files names as the first argument
       // of the `add` method, you can access them like this
@@ -170,6 +177,8 @@ export default {
             CometMoon.texture,
           ].flat()))
           .load(() => {
+            this.loading = false;
+
             entityStore.add(new EscapeRing());
             entityStore.add(new Planet(game.screen.width / 2, game.screen.height / 2));
 
