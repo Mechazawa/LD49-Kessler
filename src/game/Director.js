@@ -8,6 +8,7 @@ import { randInt, randomPick } from '../utils';
 import texts from '../assets/text.json';
 import entityStore from './EntityStore';
 import Satellite from './entities/Satellite';
+import CometMoon from './entities/CometMoon';
 
 export default class Director {
   timeElapsed = 0;
@@ -99,8 +100,10 @@ export default class Director {
     } else if (pick < 0.5) {
       this.launch();
       this.launch();
-    } else {
+    } else if (pick < 0.9) {
       this.launch();
+    } else {
+      this.comet();
     }
   }
 
@@ -139,6 +142,17 @@ export default class Director {
 
   getSatCount () {
     return entityStore.getEntitiesForType(Satellite).size;
+  }
+
+  comet () {
+    const spawnPoints = [
+      [995, 445, 0.9, -0.6],
+      [995, 245, 0.3, 0.6],
+      [10, 145, -0.3, -0.6],
+      [10, 745, -0.9, 1.3]
+    ];
+
+    entityStore.add(new CometMoon(...randomPick(launchCoordinates)));
   }
 }
 

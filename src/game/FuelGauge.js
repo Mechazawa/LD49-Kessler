@@ -20,8 +20,8 @@ export class FuelGauge extends AbstractEntity {
 
     this.sprite2 = blockObserver(new Sprite(game.loader.resources[first(frontTexture)].texture));
 
-    this.sprite.scale.set(0.3, 0.3);
-    this.sprite2.scale.set(0.3, 0.3);
+    this.sprite.scale.set(0.2, 0.2);
+    this.sprite2.scale.set(0.2, 0.2);
     this.sprite.anchor.set(0.5, 0.5);
     this.sprite2.anchor.set(0.5, 0.5);
 
