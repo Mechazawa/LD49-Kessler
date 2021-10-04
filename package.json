@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "predeploy": "npm run build -- --production --modern",
+    "predeploy": "npm run build -- --production",
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
