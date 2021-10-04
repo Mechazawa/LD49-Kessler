@@ -46,6 +46,10 @@ sounds.whenLoaded = () => {
 
   getSound('warning').volume = 0.5;
 
+  getSound('pause').volume = 2.5;
+
+  getSound('select').volume = 0.7;
+
   Object.keys(SoundEffect).forEach(s => {
     getSound(s).volume *= volume;
   });

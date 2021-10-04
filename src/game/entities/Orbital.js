@@ -137,6 +137,8 @@ export default class Orbital extends AbstractEntity {
 
     this.lookaheadUpdateThreshold = 1;
     this.lookaheadPreview = new TrailPrediction(this);
+
+    SoundEffect.select().play();
   }
 
   deselect () {
