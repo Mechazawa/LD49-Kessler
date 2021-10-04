@@ -74,7 +74,7 @@ export default {
       paused: false,
       music: false,
       highScore: false,
-      controls: false,
+      controls: true,
       scores: [],
       director: new Director(),
     };

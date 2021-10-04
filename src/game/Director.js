@@ -30,8 +30,7 @@ export default class Director {
       value: 'Starburst IX launches their first satellite "[satellite]"',
     })],
     [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15)).moveToSafeCoordinates()],
-    [0, () => this.launch()],
-    [0, () => this.launch()],
+    [0, () => entityStore.add(new Satellite1(...randomPick(launchCoordinates), 15)).moveToSafeCoordinates()],
     ...texts.population.map((amount, i) => [i * 120, () => window.news.add({
       title: 'Population Growth',
       value: `The population of Starburst IX grew to ${amount}`,

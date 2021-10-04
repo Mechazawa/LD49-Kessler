@@ -14,7 +14,7 @@
         Get points for protecting satellites as long as
         possible.
       </p>
-      <h2 class="fancyborder" @click="$emit('dismiss')">Done</h2>
+      <h2 class="fancyborder" @click="$emit('dismiss')">Ok</h2>
     </div>
     <div style="width: 40%">
       <div style="width: 100%; height:45%;padding-top:20px;padding-bottom:10px">
