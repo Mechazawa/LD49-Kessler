@@ -245,7 +245,7 @@ export default class Orbital extends AbstractEntity {
     }
   }
 
-  isCrashedIntoPlanet() {
+  isCrashedIntoPlanet () {
     return Array.from(entityStore.getEntitiesForType(Planet))
       .some(e => !e.dead && Boolean(this.testCollision(e)));
   }

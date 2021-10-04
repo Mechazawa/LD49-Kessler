@@ -84,6 +84,7 @@ export default class Director {
 
     // game over
     this.gameOver = entityStore.getEntitiesForType(Satellite).size === 0;
+
     if (this.gameOver) {
       game.paused = true;
     }
