@@ -215,7 +215,7 @@ export default class Satellite extends Orbital {
 
     console.log('tries', attempts.length);
 
-    if (this.collisionRadius < safeDistance) {
+    if (this.nearestCollision < safeDistance) {
       const [expected, [x, y, vx, vy]] = attempts.sort((a, b) => b[0] - a[0])[0];
 
       this.sprite.x = x;
