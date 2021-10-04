@@ -12,7 +12,7 @@ import SoundEffect from '../SoundEffect';
 
 
 export default class Orbital extends AbstractEntity {
-  static scale = 10_000;
+  static scale = 10000;
 
   collisionRadius = 0;
 
