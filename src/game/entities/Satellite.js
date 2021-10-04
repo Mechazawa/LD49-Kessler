@@ -185,6 +185,8 @@ export default class Satellite extends Orbital {
   }
 
   moveToSafeCoordinates (safeDistance = 180, maxTries = 200) {
+    const oldRad = this.collisionRadius;
+
     for (let tries = maxTries; tries > 0 && this.nearestCollision < safeDistance; tries--) {
       const [x, y, vx, vy] = randomPick(launchCoordinates);
 
@@ -193,8 +195,12 @@ export default class Satellite extends Orbital {
       this.sprite.vx = vx;
       this.sprite.vy = vy;
 
+      this.collisionRadius = oldRad + (tries / maxTries) * 30;
+
       this.updateCollisionLookahead();
     }
+
+    this.collisionRadius = oldRad;
 
     console.log('nearestCollision', this.nearestCollision);
   }
