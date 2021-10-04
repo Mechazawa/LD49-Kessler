@@ -6,7 +6,7 @@ export default class Key extends EventEmitter {
   released = true;
   pressed = false;
 
-  preventDefault = true;
+  preventDefault = false;
 
   /**
    * @see {KeyboardEvent.key}

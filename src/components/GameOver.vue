@@ -45,13 +45,13 @@ export default {
 <style scoped>
 .fixed {
   width: 400px;
-  /*height: 550px;*/
+  height: 350px;
   overflow: hidden;
   position: absolute;
   display: block;
 
-  margin-top: 10vh;
-  left: calc(40vw - 60px);
+  left: calc(50vw - 200px);
+  top: calc(50vh - 250px);
 
   background: rgba(50, 50, 50, 0.95);
 }
@@ -78,6 +78,10 @@ h2:before {
 #score {
   width: 50%;
   margin: auto;
+}
+
+input {
+z-index: 100;
 }
 
 input {

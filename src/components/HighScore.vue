@@ -47,6 +47,7 @@ export default {
 <style scoped>
 .fixed {
   width: 300px;
+
   overflow: hidden;
   position: absolute;
   display: block;
