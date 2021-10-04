@@ -46,6 +46,7 @@ import ScoreCounter from './components/ScoreCounter';
 import GameOver from './components/GameOver';
 import texts from './assets/text.json';
 import HighScore from './components/HighScore';
+import { FuelGauge } from './game/FuelGauge';
 
 export default {
   name: 'app',
@@ -151,6 +152,8 @@ export default {
             Prediction.texture,
             Explosion.texture,
             EscapeRing.texture,
+            FuelGauge.texture,
+            FuelGauge.texture2,
           ].flat()))
           .load(() => {
             entityStore.add(new EscapeRing());
@@ -158,7 +161,7 @@ export default {
 
             const stats = new Stats();
 
-            if (env.debug) {
+            if ('debug' in env) {
               this.$refs.game.appendChild(stats.dom);
             }
 

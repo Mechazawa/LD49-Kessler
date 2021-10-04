@@ -43,7 +43,7 @@ export default class CollisionWarning extends AbstractEntity {
   update (delta) {
     super.update(delta);
 
-    this.sprite.rotation = degToRad(15 * Math.sin(this.ttl / 7));
+    this.sprite.rotation = degToRad(15 * Math.sin((new Date()).getTime() / 120));
     this.sprite.x = this.satellites[0].sprite.x;
     this.sprite.y = this.satellites[0].sprite.y;
   }

@@ -1,58 +1,65 @@
 import AbstractEntity from './entities/AbstractEntity';
 import game from '../game';
-import { Graphics } from 'pixi.js';
+import { Sprite } from 'pixi.js';
+import backTexture
+  from 'svg-to-png-loader?width=379&height=38&name=images/[name]-[width]x[height].png!@/assets/fuel-gauge-back.svg';
+import frontTexture
+  from 'svg-to-png-loader?width=380&height=38&name=images/[name]-[width]x[height].png!@/assets/fuel-gauge-front.svg';
+import { blockObserver, first } from '../utils';
+
 
 export class FuelGauge extends AbstractEntity {
-  constructor (parent, offset = parent.collisionRadius + 10) {
+  static texture = first(backTexture);
+  static texture2 = first(frontTexture);
+
+  constructor (parent, offset = parent.collisionRadius + 20) {
     super();
 
     this.parent = parent;
     this.offset = offset;
 
-    this.background = new Graphics();
-    // this.background.lineStyle({ width: 1, color: 0x99CCFF, alpha: 1 });
-    this.background.beginFill(0xFF9933);
-    // this.background.anchor.set(0.5, 0.5);
-    this.background.drawRoundedRect(this.parent.sprite.x, this.parent.sprite.y + offset, parent.collisionRadius * 2, 10, 2);
-    this.background.endFill();
+    this.sprite2 = blockObserver(new Sprite(game.loader.resources[first(frontTexture)].texture));
 
-    this.indicator = new Graphics();
-    this.indicator.beginFill(0x00DA22);
-    // this.indicator.anchor.set(0.5, 0.5);
-    this.indicator.drawRoundedRect(0, 0, parent.collisionRadius * 2, 10, 10);
-    this.indicator.endFill();
+    this.sprite.scale.set(0.3, 0.3);
+    this.sprite2.scale.set(0.3, 0.3);
+    this.sprite.anchor.set(0.5, 0.5);
+    this.sprite2.anchor.set(0.5, 0.5);
 
-    game.stage.addChild(this.background);
-    game.stage.addChild(this.indicator);
+    game.stage.addChild(this.sprite);
+    game.stage.addChild(this.sprite2);
 
     window.fuel = this;
   }
 
   destroy () {
     if (!this.dead) {
-      game.stage.removeChild(this.background);
-      game.stage.removeChild(this.indicator);
+      game.stage.removeChild(this.sprite);
+      game.stage.removeChild(this.sprite2);
 
-      this.background.destroy();
-      this.indicator.destroy();
+      this.sprite.destroy();
+      this.sprite2.destroy();
     }
 
     super.destroy();
   }
 
   tick (delta) {
-    this.dead |= this.parent.dead;
+    if (this.parent.dead) {
+      this.destroy();
+    }
+  }
 
-    super.tick(delta);
+  update (delta) {
+    super.update(delta);
 
     if (!this.parent.dead) {
-      this.background.x = this.parent.sprite.x;
-      this.background.y = this.parent.sprite.y + this.offset;
-      this.indicator.x = this.parent.sprite.x;
-      this.indicator.y = this.parent.sprite.y + this.offset;
+      this.sprite.x = this.parent.sprite.x;
+      this.sprite.y = this.parent.sprite.y + this.offset;
+      this.sprite2.x = this.parent.sprite.x;
+      this.sprite2.y = this.parent.sprite.y + this.offset;
 
       // lazy
-      this.indicator.scale.x = Math.min(0, this.parent.fuel / 200);
+      this.sprite2.scale.x = Math.max(0, (this.parent.fuel / 200) * this.sprite2.scale.y);
     }
   }
 }
