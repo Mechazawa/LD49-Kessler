@@ -21,11 +21,15 @@
         <img src="images/controls-mouse.svg" width="80">
       </div>
       Select
-      <div style="width: 100%; height:45%;padding-top:20px;padding-bottom:10px">
+      <div style="width: 100%; height:45%;padding-top:20px;">
         <img src="images/controls-keyboard.svg" width="130">
       </div>
-      Moves ship in specified direction. Some
-      ships have more fuel or are faster then others.
+      <p>
+        Moves ship in specified direction. Some
+        ships have more fuel or are faster then
+        others. Fuel supply is indicated by the
+        blue bar.
+      </p>
     </div>
   </div>
 </template>
@@ -83,7 +87,7 @@ h2, input {
 
 p {
   text-align: justify;
-  padding:0 2em;
+  padding: 0 2em;
 }
 
 h2:hover {
