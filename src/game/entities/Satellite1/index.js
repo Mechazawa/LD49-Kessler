@@ -15,7 +15,7 @@ export default class Satellite2 extends Satellite {
     DebrisTiny,
   ];
 
-  speed = 0.05;
+  speed = 0.04;
 
   fuel = 200;
 
